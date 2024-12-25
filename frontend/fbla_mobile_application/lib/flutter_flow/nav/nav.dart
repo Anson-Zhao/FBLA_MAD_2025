@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:edu_venture/games/app.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
@@ -41,6 +42,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) => SplashWidget(),
       routes: [
+        FFRoute(
+          name: 'CarGame',
+          path: '/cargame',
+          builder: (context, _) => GameMath(),
+        ),
         FFRoute(
           name: '_initialize',
           path: '/',
