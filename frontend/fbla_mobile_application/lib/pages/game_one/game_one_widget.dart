@@ -223,6 +223,10 @@ class _GameOneWidgetState extends State<GameOneWidget> {
                                               '1',
                                               ParamType.String,
                                             ),
+                                            'action': serializeParam(
+                                              '+',
+                                              ParamType.String,
+                                            ),
                                           }.withoutNulls,
                                         );
                                       },
@@ -248,6 +252,10 @@ class _GameOneWidgetState extends State<GameOneWidget> {
                                           queryParameters: {
                                             'level': serializeParam(
                                               '2',
+                                              ParamType.String,
+                                            ),
+                                            'action': serializeParam(
+                                              '-',
                                               ParamType.String,
                                             ),
                                           }.withoutNulls,
@@ -279,6 +287,10 @@ class _GameOneWidgetState extends State<GameOneWidget> {
                                               '3',
                                               ParamType.String,
                                             ),
+                                            'action': serializeParam(
+                                              '*',
+                                              ParamType.String,
+                                            ),
                                           }.withoutNulls,
                                         );
                                       },
@@ -306,6 +318,10 @@ class _GameOneWidgetState extends State<GameOneWidget> {
                                           queryParameters: {
                                             'level': serializeParam(
                                               '4',
+                                              ParamType.String,
+                                            ),
+                                            'action': serializeParam(
+                                              '/',
                                               ParamType.String,
                                             ),
                                           }.withoutNulls,
@@ -351,10 +367,29 @@ class _GameOneWidgetState extends State<GameOneWidget> {
                           ),
                         ),
                       ),
-                      wrapWithModel(
-                        model: _model.backButtonModel,
-                        updateCallback: () => safeSetState(() {}),
-                        child: BackButtonWidget(),
+                      Container(
+                        width: 60.0,
+                        height: 60.0,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondary,
+                          shape: BoxShape.circle,
+                        ),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed(
+                              'HomePage'
+                            );
+                          },
+                          child: Icon(
+                            Icons.arrow_back_rounded,
+                            color: FlutterFlowTheme.of(context).primaryBackground,
+                            size: 34.0,
+                          ),
+                        ),
                       ),
                     ],
                   ),

@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui';
 
 
+import 'package:edu_venture/flutter_flow/flutter_flow_util.dart';
 import 'package:edu_venture/games/background_elements/background.dart';
 import 'package:edu_venture/games/background_elements/finish.dart';
 import 'package:edu_venture/games/background_elements/road.dart';
@@ -16,8 +18,9 @@ import 'package:flame/components.dart';
 
 class GoGreenWorld extends World with HasGameRef<GoGreenGame> {
   final Random _random = Random();
-  final List<int> numbers; //[Random().nextInt(10), Random().nextInt(10)]
+  final List<int> numbers;
   final String action;
+  final VoidCallback onGameEnd; // Callback for navigation
 
   Car? playerCar;
   AiCar? aiCar;
@@ -30,7 +33,7 @@ class GoGreenWorld extends World with HasGameRef<GoGreenGame> {
   bool newQuestion = false;
   bool isPaused = false;
 
-  GoGreenWorld(this.numbers, this.action);
+  GoGreenWorld(this.numbers, this.action, {required this.onGameEnd});
 
   List<int> generateUniqueAnswers(
       int correctAnswer, int numAnswers, int min, int max) {
@@ -144,11 +147,12 @@ class GoGreenWorld extends World with HasGameRef<GoGreenGame> {
     isPaused = true;
     background?.stopBackground();
     road?.stopRoad();
+    onGameEnd(); // Trigger navigation
 
     print("Game has ended, all movement stopped.");
   }
 
-  @override
+ @override
   void update(double dt) {
     progressBar.playerProgress = playerCar!.calculateRoadPercentage();
     progressBar.aiProgress = aiCar!.calculateRoadPercentage();
@@ -156,9 +160,10 @@ class GoGreenWorld extends World with HasGameRef<GoGreenGame> {
     if (isPaused) return;
     super.update(dt);
 
-    if (newQuestion) {
-      print("New Question just set");
-      newQuestion = false;
+    // Check if the game is over
+    if (progressBar.playerProgress >= 1.0 || progressBar.aiProgress >= 1.0) {
+      stopAllMovement();
+
     }
   }
 }

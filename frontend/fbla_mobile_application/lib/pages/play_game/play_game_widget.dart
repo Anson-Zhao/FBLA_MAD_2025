@@ -14,9 +14,12 @@ class PlayGameWidget extends StatefulWidget {
   const PlayGameWidget({
     super.key,
     String? level,
-  }) : this.level = level ?? '1';
+    String? action,
+  })  : this.level = level ?? '1',
+        this.action = action ?? '+';
 
   final String level;
+  final String action;
 
   @override
   State<PlayGameWidget> createState() => _PlayGameWidgetState();
@@ -26,7 +29,7 @@ class _PlayGameWidgetState extends State<PlayGameWidget> {
   late PlayGameModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  
   @override
   void initState() {
     super.initState();
@@ -264,11 +267,27 @@ class _PlayGameWidgetState extends State<PlayGameWidget> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         20.0, 0.0, 20.0, 0.0),
-                                    child: wrapWithModel(
-                                      model: _model.buttonModel,
-                                      updateCallback: () => safeSetState(() {}),
-                                      child: ButtonWidget(
-                                        buttonLabel: 'Play',
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        context.pushNamed('CarGame',
+                                            queryParameters: {
+                                              'sign': serializeParam(
+                                                widget.action, // Pass the desired operation sign here
+                                                ParamType.String,
+                                              ),
+                                            });
+                                      },
+                                      child: wrapWithModel(
+                                        model: _model.buttonModel,
+                                        updateCallback: () =>
+                                            safeSetState(() {}),
+                                        child: ButtonWidget(
+                                          buttonLabel: 'Play',
+                                        ),
                                       ),
                                     ),
                                   ),

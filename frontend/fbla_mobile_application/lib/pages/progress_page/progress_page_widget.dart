@@ -509,13 +509,10 @@ class _ProgressPageWidgetState extends State<ProgressPageWidget> {
                     ),
                   ),
                 ),
-                Flexible(
-                  child: Container(
-                    width: 80.0,
-                    height: 80.0,
-                    decoration: BoxDecoration(),
-                  ),
-                ),
+                const SizedBox(
+                  width: 1,
+                  height: 100.0,
+                )
               ],
             ),
           ),

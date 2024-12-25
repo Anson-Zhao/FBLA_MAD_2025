@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:edu_venture/games/app.dart';
+import 'package:edu_venture/pages/game_end/game_end_widget.dart';
+import 'package:edu_venture/quiz/quizScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
@@ -43,9 +45,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       errorBuilder: (context, state) => SplashWidget(),
       routes: [
         FFRoute(
+          name: 'EndGame',
+          path: '/endGame',
+          builder: (context, _) => GameEndWidget(),
+        ),
+        FFRoute(
           name: 'CarGame',
           path: '/cargame',
-          builder: (context, _) => GameMath(),
+          builder: (context, params) => GameMath(
+            sign: params.getParam('sign', ParamType.String) ?? '+', // Default to '+'
+          ),
         ),
         FFRoute(
           name: '_initialize',
@@ -109,7 +118,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Quiz',
           path: '/quiz',
-          builder: (context, params) => QuizWidget(),
+          builder: (context, params) => QuizScreen(),
         ),
         FFRoute(
           name: 'CopyrightLicense',
@@ -136,7 +145,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             level: params.getParam(
               'level',
               ParamType.String,
-            ),
+            ), 
+            action: params.getParam(
+              'action',
+              ParamType.String,
+              ),
           ),
         ),
         FFRoute(
