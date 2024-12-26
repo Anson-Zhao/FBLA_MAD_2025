@@ -362,74 +362,83 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Container(
-                        width: MediaQuery.sizeOf(context).width * 0.384,
-                        height: MediaQuery.sizeOf(context).height * 0.177,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).secondary,
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        child: Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                20.0, 12.0, 20.0, 12.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 8.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        width: 79.0,
-                                        height: 56.0,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: Image.asset(
-                                              'assets/images/flashcards.png',
-                                            ).image,
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('FlashCard');
+                        },
+                        child: Container(
+                          width: MediaQuery.sizeOf(context).width * 0.384,
+                          height: MediaQuery.sizeOf(context).height * 0.177,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).secondary,
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Align(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  20.0, 12.0, 20.0, 12.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 8.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          width: 79.0,
+                                          height: 56.0,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: Image.asset(
+                                                'assets/images/flashcards.png',
+                                              ).image,
+                                            ),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 12.0,
+                                                color: Color(0x33000000),
+                                                offset: Offset(
+                                                  0.0,
+                                                  8.0,
+                                                ),
+                                              )
+                                            ],
                                           ),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              blurRadius: 12.0,
-                                              color: Color(0x33000000),
-                                              offset: Offset(
-                                                0.0,
-                                                8.0,
-                                              ),
-                                            )
-                                          ],
                                         ),
-                                      ),
-                                      Icon(
-                                        Icons.arrow_forward_rounded,
-                                        color: Colors.white,
-                                        size: 36.0,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(1.0, 0.0),
-                                  child: Text(
-                                    'Flashcards',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Prompt',
+                                        Icon(
+                                          Icons.arrow_forward_rounded,
                                           color: Colors.white,
-                                          letterSpacing: 0.0,
+                                          size: 24.0,
                                         ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Align(
+                                    alignment: AlignmentDirectional(1.0, 0.0),
+                                    child: Text(
+                                      'Flashcards',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Prompt',
+                                            color: Colors.white,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

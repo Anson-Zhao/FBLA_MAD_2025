@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:edu_venture/flashcards/flashcard.dart';
 import 'package:edu_venture/games/app.dart';
 import 'package:edu_venture/pages/game_end/game_end_widget.dart';
 import 'package:edu_venture/quiz/quizScreen.dart';
@@ -44,6 +45,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) => SplashWidget(),
       routes: [
+        FFRoute(
+          name: 'FlashCard',
+          path: '/flashCard',
+          builder: (context, _) => FlashCardApp(),
+        ),
         FFRoute(
           name: 'EndGame',
           path: '/endGame',
