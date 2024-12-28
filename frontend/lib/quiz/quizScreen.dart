@@ -1,3 +1,4 @@
+import 'package:edu_venture/flutter_flow/flutter_flow_util.dart';
 import 'package:edu_venture/quiz/answerButton.dart';
 import 'package:edu_venture/quiz/fetchQuestions.dart';
 import 'package:edu_venture/quiz/progressBar.dart';
@@ -77,29 +78,35 @@ class _QuizScreenState extends State<QuizScreen> {
     });
   }
 
-  void goToNextQuestion() {
-    if (selectedAnswerIndex == questions[currentQuestionIndex]['correctIndex']) {
-      correctAnswers++;
-    }
-
-    if (currentQuestionIndex < questions.length - 1) {
-      setState(() {
-        currentQuestionIndex++;
-      });
-      restartTimer();
-    } else {
-      timer?.cancel();
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ResultScreen(
-            correctAnswers: correctAnswers,
-            totalQuestions: questions.length,
-          ),
-        ),
-      );
-    }
+void goToNextQuestion() {
+  if (selectedAnswerIndex == questions[currentQuestionIndex]['correctIndex']) {
+    correctAnswers++;
   }
+
+  // Check if questions is empty or null
+  int totalQuestions = questions?.length ?? 0;  // Use 0 if questions is null or empty
+
+  if (currentQuestionIndex < totalQuestions - 1) {
+    setState(() {
+      currentQuestionIndex++;
+    });
+    restartTimer();
+  } else {
+    timer?.cancel();
+    // Navigate using GoRouter and pass data with extra
+    context.goNamed(
+      'ResultPage', // The name of the route defined in GoRouter
+      extra: {
+        'correctAnswers': correctAnswers, 
+        'totalQuestions': totalQuestions,  // Use the default value if questions is empty
+      },
+    );
+  }
+}
+
+
+
+
 
   @override
   void dispose() {

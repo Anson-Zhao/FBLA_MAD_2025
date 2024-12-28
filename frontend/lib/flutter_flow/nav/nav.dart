@@ -4,6 +4,7 @@ import 'package:edu_venture/flashcards/flashcard.dart';
 import 'package:edu_venture/games/app.dart';
 import 'package:edu_venture/pages/game_end/game_end_widget.dart';
 import 'package:edu_venture/quiz/quizScreen.dart';
+import 'package:edu_venture/quiz/resultScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
@@ -45,6 +46,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) => SplashWidget(),
       routes: [
+        FFRoute(
+          name: 'ResultPage',
+          path: '/resultPage',
+          builder: (context, params) {
+            // Use a fallback value of 0 if correctAnswers or totalQuestions is null
+            final correctAnswers = params.getParam<int>('correctAnswers', ParamType.int) ?? 0;
+            final totalQuestions = params.getParam<int>('totalQuestions', ParamType.int) ?? 0;
+
+            return ResultScreen(
+              correctAnswers: correctAnswers,
+              totalQuestions: totalQuestions,
+            );
+          },
+        ),
         FFRoute(
           name: 'FlashCard',
           path: '/flashCard',
