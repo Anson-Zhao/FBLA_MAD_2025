@@ -7,6 +7,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:edu_venture/config.dart';
 import 'sign_in_model.dart';
 export 'sign_in_model.dart';
 
@@ -36,6 +38,70 @@ class _SignInWidgetState extends State<SignInWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  bool _areAllFieldsValid() {
+    final isEmailValid =
+        _model.textInputModel.textController.text.isNotEmpty ?? false;
+    final isPasswordValid = _model.textController?.text.isNotEmpty ?? false;
+
+    setState(() {
+      _model.textInputModel.textControllerValidator =
+          (context, value) => isEmailValid ? null : 'Email is required';
+      _model.textControllerValidator =
+          (context, value) => isPasswordValid ? null : 'Password is required';
+    });
+
+    return isPasswordValid && isEmailValid;
+  }
+
+  void loginUser() async {
+    if (_areAllFieldsValid()) {
+      String email = _model.textInputModel.textController.text ?? '';
+      String password = _model.textController?.text ?? ''; // Corrected
+
+      print(email);
+      print(password);
+
+      var regBody = {
+        "email": email,
+        "password": password,
+      };
+
+      try {
+        var response = await http.post(
+          Uri.parse(login),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(regBody),
+        );
+
+        if (response.statusCode == 200) {
+          // Successfully registered
+          context.pushNamed('HomePage');
+        } else {
+          // Show error message
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Registration failed: ${response.body}'),
+            ),
+          );
+          print(response.body);
+        }
+      } catch (e) {
+        // Handle exception
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('An error occurred: $e'),
+          ),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please fill out all fields correctly.'),
+        ),
+      );
+    }
   }
 
   @override
@@ -197,7 +263,17 @@ class _SignInWidgetState extends State<SignInWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context.pushNamed('HomePage');
+                            if (_areAllFieldsValid()) {
+                              loginUser();
+                            } else {
+                              // Optionally show a message or highlight the missing fields
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content:
+                                      Text('Please fill out all fields correctly.'),
+                                ),
+                              );
+                            }
                           },
                           child: wrapWithModel(
                             model: _model.buttonModel,

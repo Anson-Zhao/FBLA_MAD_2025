@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class QuizService {
-  final String baseUrl = 'http://10.11.20.253:3306'; // Replace with your actual API URL
+  final String baseUrl = 'http://10.0.2.2:3306'; // Replace with your actual API URL
 
   Future<List<Map<String, dynamic>>> fetchQuestions() async {
     try {

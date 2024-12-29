@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'sign_up_model.dart';
+import 'package:http/http.dart' as http;
+import 'package:edu_venture/config.dart';
 export 'sign_up_model.dart';
 
 class SignUpWidget extends StatefulWidget {
@@ -39,6 +41,93 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  bool _areAllFieldsValid() {
+    final isUsernameValid =
+        _model.textInputModel1.textController.text.isNotEmpty ?? false;
+    final isEmailValid =
+        _model.textInputModel2.textController.text.isNotEmpty ?? false;
+    final isPasswordValid = _model.textController1?.text.isNotEmpty ?? false;
+    final isConfirmPasswordValid =
+        _model.textController2?.text.isNotEmpty ?? false;
+    final doPasswordsMatch =
+        _model.textController1?.text == _model.textController2?.text;
+
+    // Update validators to reflect errors
+    setState(() {
+      _model.textInputModel1.textControllerValidator =
+          (context, value) => isUsernameValid ? null : 'Username is required';
+      _model.textInputModel2.textControllerValidator =
+          (context, value) => isEmailValid ? null : 'Email is required';
+      _model.textController1Validator =
+          (context, value) => isPasswordValid ? null : 'Password is required';
+      _model.textController2Validator = (context, value) {
+        if (!isConfirmPasswordValid) {
+          return 'Confirm password is required';
+        } else if (!doPasswordsMatch) {
+          return 'Passwords do not match';
+        }
+        return null;
+      };
+    });
+
+    return isUsernameValid &&
+        isEmailValid &&
+        isPasswordValid &&
+        isConfirmPasswordValid &&
+        doPasswordsMatch;
+  }
+
+  void registerUser() async {
+    if (_areAllFieldsValid()) {
+      String username = _model.textInputModel1.textController.text ?? '';
+      String email = _model.textInputModel2.textController.text ?? '';
+      String password = _model.textController1?.text ?? ''; // Corrected
+
+      print(username);
+      print(email);
+      print(password);
+
+      var regBody = {
+        "username": username,
+        "email": email,
+        "password": password,
+      };
+
+      try {
+        var response = await http.post(
+          Uri.parse(login),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(regBody),
+        );
+
+        if (response.statusCode == 201) {
+          // Successfully registered
+          context.pushNamed('HomePage');
+        } else {
+          // Show error message
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Log in failed: ${response.body}'),
+            ),
+          );
+          print(response.body);
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('An error occurred: $e'),
+          ),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please fill out all fields correctly.'),
+        ),
+      );
+    }
   }
 
   @override
@@ -277,7 +366,17 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed('HomePage');
+                        if (_areAllFieldsValid()) {
+                          registerUser();
+                        } else {
+                          // Optionally show a message or highlight the missing fields
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content:
+                                  Text('Please fill out all fields correctly.'),
+                            ),
+                          );
+                        }
                       },
                       child: wrapWithModel(
                         model: _model.buttonModel,

@@ -35,6 +35,6 @@ class SignInModel extends FlutterFlowModel<SignInWidget> {
     textFieldFocusNode?.dispose();
     textController?.dispose();
 
-    buttonModel.dispose();
+    buttonModel.dispose();  
   }
 }
