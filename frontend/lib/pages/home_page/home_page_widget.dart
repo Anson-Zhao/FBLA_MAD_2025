@@ -213,10 +213,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           child: Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
-                                                0.161,
+                                                0.1521,
                                             height: MediaQuery.sizeOf(context)
                                                     .height *
-                                                0.089,
+                                                0.0801,
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
                                                 fit: BoxFit.cover,

@@ -9,7 +9,7 @@ class Question extends PositionComponent {
   final String action;
 
   Question({required this.numbers, required this.action}) {
-    size = Vector2(gameWidth * 3 / 4, 200);
+    size = Vector2(gameWidth * 3 / 4, 250);
     position = Vector2(0, -gameHeight / 2 + 200);
     anchor = Anchor.center;
   }
@@ -29,12 +29,12 @@ class Question extends PositionComponent {
 
   void _drawBackground(Canvas canvas) {
     final Paint backgroundPaint = Paint()
-      ..color = Colors.white
+      ..color = const Color(0xFF263238)
       ..style = PaintingStyle.fill;
 
     final RRect backgroundRect = RRect.fromRectAndRadius(
       Rect.fromLTWH(0, 0, width, height),
-      const Radius.circular(20),
+      const Radius.circular(40),
     );
 
     canvas.drawRRect(backgroundRect, backgroundPaint);
@@ -45,7 +45,7 @@ class Question extends PositionComponent {
       text: TextSpan(
         text: '${numbers[0]} $action ${numbers[1]} = ?',
         style: const TextStyle(
-          color: Colors.black,
+          color: Colors.white,
           fontSize: 60,
           fontWeight: FontWeight.w600,
         ),

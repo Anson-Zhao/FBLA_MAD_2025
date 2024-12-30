@@ -46,6 +46,7 @@ class _FlashCardPageState extends State<FlashCardPage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(32),
           ),
+          backgroundColor: Colors.white,
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -98,7 +99,7 @@ class _FlashCardPageState extends State<FlashCardPage> {
                         borderRadius: BorderRadius.circular(24),
                       ),
                       filled: true,
-                      fillColor: Theme.of(context).scaffoldBackgroundColor,
+                      fillColor: Colors.white,
                       contentPadding: const EdgeInsets.symmetric(
                         vertical: 8,
                         horizontal: 14,
@@ -143,7 +144,7 @@ class _FlashCardPageState extends State<FlashCardPage> {
                         borderRadius: BorderRadius.circular(24),
                       ),
                       filled: true,
-                      fillColor: Theme.of(context).scaffoldBackgroundColor,
+                      fillColor: Colors.white,
                       contentPadding: const EdgeInsets.symmetric(
                         vertical: 8,
                         horizontal: 14,
@@ -220,6 +221,7 @@ class _FlashCardPageState extends State<FlashCardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -452,6 +454,7 @@ class _FlashCardState extends State<FlashCard>
 
   Widget _buildCard(String text) {
     return Card(
+      color: Colors.white,
       margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
       elevation: 4.0,
       child: Container(

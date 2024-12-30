@@ -49,7 +49,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
     }
 
     answerList = answers.toList()..shuffle(_random);
-    buttonColors = List<Color>.filled(4, Colors.white);
+    buttonColors = List<Color>.filled(4,Color(0xFF263238));
   }
 
   @override
@@ -82,13 +82,13 @@ class _ButtonScreenState extends State<ButtonScreen> {
           height: height,
           decoration: BoxDecoration(
             color: buttonColors[index],
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(100),
           ),
           alignment: Alignment.center,
           child: Text(
             answerList[index].toString(),
             style: const TextStyle(
-              color: Colors.black,
+              color: Colors.white,
               fontSize: 60,
               fontWeight: FontWeight.w600,
             ),

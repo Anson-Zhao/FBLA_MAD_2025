@@ -239,11 +239,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/quizzes',
           builder: (context, params) => QuizzesWidget(),
         ),
-        FFRoute(
-          name: 'testpage',
-          path: '/testpage',
-          builder: (context, params) => TestpageWidget(),
-        )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
 

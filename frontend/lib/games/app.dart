@@ -36,7 +36,7 @@ class _GameMathState extends State<GameMath> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: const Color(0xFF263238),
       ),
       home: Scaffold(
         body: SafeArea(
