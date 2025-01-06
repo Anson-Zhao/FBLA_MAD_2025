@@ -1,3 +1,4 @@
+import 'package:edu_venture/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 
 class ResultScreen extends StatelessWidget {
@@ -30,7 +31,7 @@ class ResultScreen extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/');
+                context.go("/quizOne");
               },
               child: const Text('Restart Quiz'),
             ),

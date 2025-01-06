@@ -1,3 +1,5 @@
+import 'package:edu_venture/local_storage.dart';
+
 import '/components/back_button_widget.dart';
 import '/components/stroke_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -19,6 +21,7 @@ class FeedbackWidget extends StatefulWidget {
 
 class _FeedbackWidgetState extends State<FeedbackWidget> {
   late FeedbackModel _model;
+  String? username;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -29,6 +32,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+    _loadUsername();
   }
 
   @override
@@ -36,6 +40,14 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Future<void> _loadUsername() async {
+    String? fetchedUsername = await LocalStorage.username;
+    setState(() {
+      username =
+          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+    });
   }
 
   @override
@@ -105,7 +117,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                                 ),
                               ),
                               Text(
-                                'Bach Giap',
+                                username ?? '',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

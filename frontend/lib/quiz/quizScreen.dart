@@ -1,3 +1,4 @@
+import 'package:edu_venture/config.dart';
 import 'package:edu_venture/flutter_flow/flutter_flow_util.dart';
 import 'package:edu_venture/quiz/answerButton.dart';
 import 'package:edu_venture/quiz/fetchQuestions.dart';
@@ -6,9 +7,9 @@ import 'package:edu_venture/quiz/resultScreen.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-
 class QuizScreen extends StatefulWidget {
-  const QuizScreen({super.key});
+  final String quiz_id;
+  const QuizScreen({super.key, required this.quiz_id});
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -34,7 +35,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
   Future<void> fetchQuestions() async {
     try {
-      final fetchedQuestions = await QuizService().fetchQuestions();
+      final fetchedQuestions =
+          await QuizService(quiz_id: widget.quiz_id).fetchQuestions();
       setState(() {
         questions = fetchedQuestions;
         isLoading = false; // Stop loading after fetching questions
@@ -78,35 +80,34 @@ class _QuizScreenState extends State<QuizScreen> {
     });
   }
 
-void goToNextQuestion() {
-  if (selectedAnswerIndex == questions[currentQuestionIndex]['correctIndex']) {
-    correctAnswers++;
+  void goToNextQuestion() {
+    if (selectedAnswerIndex ==
+        questions[currentQuestionIndex]['correctIndex']) {
+      correctAnswers++;
+    }
+
+    // Check if questions is empty or null
+    int totalQuestions =
+        questions?.length ?? 0; // Use 0 if questions is null or empty
+
+    if (currentQuestionIndex < totalQuestions - 1) {
+      setState(() {
+        currentQuestionIndex++;
+      });
+      restartTimer();
+    } else {
+      timer?.cancel();
+      // Navigate using GoRouter and pass data with extra
+      context.goNamed(
+        'ResultPage', // The name of the route defined in GoRouter
+        extra: {
+          'correctAnswers': correctAnswers,
+          'totalQuestions':
+              totalQuestions, // Use the default value if questions is empty
+        },
+      );
+    }
   }
-
-  // Check if questions is empty or null
-  int totalQuestions = questions?.length ?? 0;  // Use 0 if questions is null or empty
-
-  if (currentQuestionIndex < totalQuestions - 1) {
-    setState(() {
-      currentQuestionIndex++;
-    });
-    restartTimer();
-  } else {
-    timer?.cancel();
-    // Navigate using GoRouter and pass data with extra
-    context.goNamed(
-      'ResultPage', // The name of the route defined in GoRouter
-      extra: {
-        'correctAnswers': correctAnswers, 
-        'totalQuestions': totalQuestions,  // Use the default value if questions is empty
-      },
-    );
-  }
-}
-
-
-
-
 
   @override
   void dispose() {
@@ -164,14 +165,16 @@ void goToNextQuestion() {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(16, 24, 16, 24),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16, 24, 16, 24),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           // Question tracking
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 16),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -231,13 +234,15 @@ void goToNextQuestion() {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(16, 32, 16, 32),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(16, 32, 16, 32),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         for (int i = 0; i < question['answers'].length; i++)
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 16),
                             child: AnswerButton(
                               answer: question['answers'][i],
                               isSelected: selectedAnswerIndex == i,
@@ -246,7 +251,6 @@ void goToNextQuestion() {
                               },
                             ),
                           ),
-
                         const SizedBox(height: 16.0),
                         GestureDetector(
                           onTap: isNextButtonEnabled ? goToNextQuestion : null,

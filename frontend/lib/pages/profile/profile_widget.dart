@@ -1,3 +1,5 @@
+import 'package:edu_venture/local_storage.dart';
+
 import '/components/back_button_widget.dart';
 import '/components/button_widget.dart';
 import '/components/edit_widget.dart';
@@ -26,6 +28,7 @@ class ProfileWidget extends StatefulWidget {
 
 class _ProfileWidgetState extends State<ProfileWidget> {
   late ProfileModel _model;
+  String? username;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -33,6 +36,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ProfileModel());
+    _loadUsername();
   }
 
   @override
@@ -40,6 +44,20 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     _model.dispose();
 
     super.dispose();
+
+  }
+
+  Future<void> _loadUsername() async {
+    String? fetchedUsername = await LocalStorage.username;
+    setState(() {
+      username =
+          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+    });
+  }
+
+  void logoutUser() async {
+    await LocalStorage.clearUserData();
+    print('User logged out successfully!');
   }
 
   @override
@@ -175,10 +193,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                         child: Container(
                                           decoration: BoxDecoration(),
                                           child: Text(
-                                            valueOrDefault<String>(
-                                              widget!.username,
-                                              'text',
-                                            ),
+                                            username ?? '',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -292,6 +307,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          logoutUser();
                           context.pushNamed('Splash');
                         },
                         child: wrapWithModel(

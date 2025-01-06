@@ -1,3 +1,5 @@
+import 'package:edu_venture/local_storage.dart';
+
 import '/components/back_button_widget.dart';
 import '/components/subject_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -19,6 +21,7 @@ class AlgebraWidget extends StatefulWidget {
 
 class _AlgebraWidgetState extends State<AlgebraWidget> {
   late AlgebraModel _model;
+  String? username;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -26,6 +29,7 @@ class _AlgebraWidgetState extends State<AlgebraWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AlgebraModel());
+    _loadUsername();
   }
 
   @override
@@ -33,6 +37,14 @@ class _AlgebraWidgetState extends State<AlgebraWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Future<void> _loadUsername() async {
+    String? fetchedUsername = await LocalStorage.username;
+    setState(() {
+      username =
+          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+    });
   }
 
   @override
@@ -105,7 +117,7 @@ class _AlgebraWidgetState extends State<AlgebraWidget> {
                                   ),
                                 ),
                                 Text(
-                                  'Bach Giap',
+                                  username ?? '',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

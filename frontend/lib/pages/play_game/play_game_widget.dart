@@ -1,3 +1,5 @@
+import 'package:edu_venture/local_storage.dart';
+
 import '/components/back_button_widget.dart';
 import '/components/button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -27,13 +29,15 @@ class PlayGameWidget extends StatefulWidget {
 
 class _PlayGameWidgetState extends State<PlayGameWidget> {
   late PlayGameModel _model;
+  String? username;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  
+
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => PlayGameModel());
+    _loadUsername();
   }
 
   @override
@@ -41,6 +45,14 @@ class _PlayGameWidgetState extends State<PlayGameWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Future<void> _loadUsername() async {
+    String? fetchedUsername = await LocalStorage.username;
+    setState(() {
+      username =
+          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+    });
   }
 
   @override
@@ -113,7 +125,7 @@ class _PlayGameWidgetState extends State<PlayGameWidget> {
                                   ),
                                 ),
                                 Text(
-                                  'Bach Giap',
+                                  username ?? '',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -276,7 +288,8 @@ class _PlayGameWidgetState extends State<PlayGameWidget> {
                                         context.pushNamed('CarGame',
                                             queryParameters: {
                                               'sign': serializeParam(
-                                                widget.action, // Pass the desired operation sign here
+                                                widget
+                                                    .action, // Pass the desired operation sign here
                                                 ParamType.String,
                                               ),
                                             });

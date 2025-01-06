@@ -1,3 +1,5 @@
+import 'package:edu_venture/local_storage.dart';
+
 import '/components/back_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -26,6 +28,7 @@ class TopicCardsWidget extends StatefulWidget {
 
 class _TopicCardsWidgetState extends State<TopicCardsWidget> {
   late TopicCardsModel _model;
+  String? username;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -33,6 +36,7 @@ class _TopicCardsWidgetState extends State<TopicCardsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TopicCardsModel());
+    _loadUsername();
   }
 
   @override
@@ -40,6 +44,14 @@ class _TopicCardsWidgetState extends State<TopicCardsWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Future<void> _loadUsername() async {
+    String? fetchedUsername = await LocalStorage.username;
+    setState(() {
+      username =
+          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+    });
   }
 
   @override
@@ -112,7 +124,7 @@ class _TopicCardsWidgetState extends State<TopicCardsWidget> {
                                   ),
                                 ),
                                 Text(
-                                  'Bach Giap',
+                                  username ?? '',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

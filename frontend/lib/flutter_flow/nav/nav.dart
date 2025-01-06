@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:edu_venture/flashcards/flashcard.dart';
 import 'package:edu_venture/games/app.dart';
+import 'package:edu_venture/local_storage.dart';
 import 'package:edu_venture/pages/game_end/game_end_widget.dart';
 import 'package:edu_venture/quiz/quizScreen.dart';
 import 'package:edu_venture/quiz/resultScreen.dart';
@@ -139,7 +140,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Quiz',
           path: '/quiz',
-          builder: (context, params) => QuizScreen(),
+          builder: (context, params) => QuizScreen(
+            quiz_id: params.getParam(
+              'quiz_id',
+              ParamType.String,
+            ),),
         ),
         FFRoute(
           name: 'CopyrightLicense',

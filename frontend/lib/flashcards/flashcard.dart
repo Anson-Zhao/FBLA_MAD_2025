@@ -1,6 +1,7 @@
 import 'package:edu_venture/flutter_flow/flutter_flow_model.dart';
 import 'package:edu_venture/flutter_flow/flutter_flow_theme.dart';
 import 'package:edu_venture/flutter_flow/flutter_flow_util.dart';
+import 'package:edu_venture/local_storage.dart';
 import 'package:flutter/material.dart';
 
 class FlashCardApp extends StatelessWidget {
@@ -35,6 +36,11 @@ class _FlashCardPageState extends State<FlashCardPage> {
     });
   }
 
+  Future<String> fetchUsername() async {
+    String? username = await LocalStorage.username;
+    return username ?? 'Guest'; // Return 'Guest' if username is null
+  }
+
   void _showAddFlashCardDialog() {
     final TextEditingController topicController = TextEditingController();
     final TextEditingController descriptionController = TextEditingController();
@@ -58,15 +64,12 @@ class _FlashCardPageState extends State<FlashCardPage> {
                     padding: const EdgeInsets.only(bottom: 16),
                     child: Text(
                       'Add flashcards',
-                      style: FlutterFlowTheme.of(context)
-                        .bodyMedium
-                        .override(
-                          fontFamily: 'Prompt',
-                          color: FlutterFlowTheme.of(context)
-                              .primaryText,
-                          fontSize: 18.0,
-                          letterSpacing: 0.0,
-                        ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Prompt',
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            fontSize: 18.0,
+                            letterSpacing: 0.0,
+                          ),
                     ),
                   ),
                 ),
@@ -76,14 +79,13 @@ class _FlashCardPageState extends State<FlashCardPage> {
                     controller: topicController,
                     decoration: InputDecoration(
                       hintText: 'Topic',
-                      hintStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Prompt',
-                                    color: Color(0x40263238),
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
-                                  ),
+                      hintStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.override(
+                                fontFamily: 'Prompt',
+                                color: Color(0x40263238),
+                                fontSize: 14.0,
+                                letterSpacing: 0.0,
+                              ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Color(0x40263238),
@@ -105,14 +107,12 @@ class _FlashCardPageState extends State<FlashCardPage> {
                         horizontal: 14,
                       ),
                     ),
-                    style: FlutterFlowTheme.of(context)
-                            .bodyMedium
-                            .override(
-                              fontFamily: 'Prompt',
-                              color: Colors.black,
-                              fontSize: 14.0,
-                              letterSpacing: 0.0,
-                            ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Prompt',
+                          color: Colors.black,
+                          fontSize: 14.0,
+                          letterSpacing: 0.0,
+                        ),
                   ),
                 ),
                 Padding(
@@ -121,14 +121,13 @@ class _FlashCardPageState extends State<FlashCardPage> {
                     controller: descriptionController,
                     decoration: InputDecoration(
                       hintText: 'Description',
-                      hintStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Prompt',
-                                    color: Color(0x40263238),
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
-                                  ),
+                      hintStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.override(
+                                fontFamily: 'Prompt',
+                                color: Color(0x40263238),
+                                fontSize: 14.0,
+                                letterSpacing: 0.0,
+                              ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Color(0x40263238),
@@ -150,14 +149,12 @@ class _FlashCardPageState extends State<FlashCardPage> {
                         horizontal: 14,
                       ),
                     ),
-                    style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Prompt',
-                                    color: Colors.black,
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
-                                  ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Prompt',
+                          color: Colors.black,
+                          fontSize: 14.0,
+                          letterSpacing: 0.0,
+                        ),
                   ),
                 ),
                 Padding(
@@ -181,14 +178,12 @@ class _FlashCardPageState extends State<FlashCardPage> {
                       alignment: Alignment.center,
                       child: Text(
                         'Add',
-                        style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Prompt',
-                                    color: Colors.white,
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
-                                  ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Prompt',
+                              color: Colors.white,
+                              fontSize: 14.0,
+                              letterSpacing: 0.0,
+                            ),
                       ),
                     ),
                   ),
@@ -199,15 +194,12 @@ class _FlashCardPageState extends State<FlashCardPage> {
                   },
                   child: Text(
                     'Cancel',
-                    style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Prompt',
-                                    color: Color(0xFF9BA1FF),
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
-                                  ),
-                              
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Prompt',
+                          color: Color(0xFF9BA1FF),
+                          fontSize: 14.0,
+                          letterSpacing: 0.0,
+                        ),
                   ),
                 ),
               ],
@@ -232,20 +224,19 @@ class _FlashCardPageState extends State<FlashCardPage> {
         ),
         child: Column(
           children: [
-            // Updated Padding widget with new shadow color
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 64, 20, 16),
               child: Container(
                 width: MediaQuery.sizeOf(context).width,
                 height: 51,
                 decoration: BoxDecoration(
-                  color: Color(0xFF263238), // Updated color
+                  color: const Color(0xFF263238), // Updated color
                   boxShadow: [
-                    BoxShadow(
+                    const BoxShadow(
                       blurRadius: 12,
                       color: Color(0x40000000), // Black with 25% opacity
                       offset: Offset(0, 8),
-                    )
+                    ),
                   ],
                   borderRadius: BorderRadius.circular(70),
                 ),
@@ -253,32 +244,65 @@ class _FlashCardPageState extends State<FlashCardPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(-1, 0),
+                      alignment: const AlignmentDirectional(-1, 0),
                       child: Row(
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(5, 0, 3, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                5, 0, 3, 0),
                             child: Container(
                               width: 41,
                               height: 41,
                               decoration: BoxDecoration(
-                                color:
-                                    Color(0xFF9BA1FF), // Updated purple color
+                                color: const Color(0xFF9BA1FF), // Purple color
                                 borderRadius: BorderRadius.circular(70),
                               ),
                             ),
                           ),
-                          Text(
-                            'Bach Giap',
-                            style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Prompt',
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryText,
-                                fontSize: 16.0,
-                                letterSpacing: 0.0,
-                              ),
+                          FutureBuilder<String>(
+                            future: fetchUsername(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Text(
+                                  'Loading...',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Prompt',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                      ),
+                                );
+                              } else if (snapshot.hasError) {
+                                return Text(
+                                  'Error',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Prompt',
+                                        color: Colors.red,
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                      ),
+                                );
+                              } else {
+                                return Text(
+                                  snapshot.data ?? 'Guest',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Prompt',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                      ),
+                                );
+                              }
+                            },
                           ),
                         ],
                       ),
@@ -289,24 +313,21 @@ class _FlashCardPageState extends State<FlashCardPage> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.safePop();
+                        context.pushNamed('HomePage');
                       },
                       child: Container(
                         width: 51,
                         height: 51,
                         decoration: BoxDecoration(
-                          color: Color(0xFF9BA1FF), // Updated purple color
+                          color: const Color(0xFF9BA1FF), // Purple color
                           borderRadius: BorderRadius.circular(70),
                         ),
                         child: Align(
                           alignment: AlignmentDirectional(0, 0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(0),
-                            child: Icon(
-                              Icons.arrow_back_rounded,
-                              color: Theme.of(context).colorScheme.onSecondary,
-                              size: 34,
-                            ),
+                          child: Icon(
+                            Icons.arrow_back_rounded,
+                            color: Theme.of(context).colorScheme.onSecondary,
+                            size: 34,
                           ),
                         ),
                       ),
@@ -315,7 +336,6 @@ class _FlashCardPageState extends State<FlashCardPage> {
                 ),
               ),
             ),
-
             // Flashcards or empty message
             Expanded(
               child: _flashcards.isEmpty
@@ -358,7 +378,7 @@ class _FlashCardPageState extends State<FlashCardPage> {
           child: Container(
             width: 60,
             height: 60,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color(0xFF263238),
               shape: BoxShape.circle,
             ),
@@ -379,6 +399,7 @@ class _FlashCardPageState extends State<FlashCardPage> {
     );
   }
 }
+
 
 class FlashCard extends StatefulWidget {
   final String topic;

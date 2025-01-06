@@ -1,3 +1,5 @@
+import 'package:edu_venture/local_storage.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -17,6 +19,7 @@ class CopyrightLicenseWidget extends StatefulWidget {
 
 class _CopyrightLicenseWidgetState extends State<CopyrightLicenseWidget> {
   late CopyrightLicenseModel _model;
+  String? username;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -24,6 +27,7 @@ class _CopyrightLicenseWidgetState extends State<CopyrightLicenseWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CopyrightLicenseModel());
+    _loadUsername();
   }
 
   @override
@@ -31,6 +35,14 @@ class _CopyrightLicenseWidgetState extends State<CopyrightLicenseWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Future<void> _loadUsername() async {
+    String? fetchedUsername = await LocalStorage.username;
+    setState(() {
+      username =
+          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+    });
   }
 
   @override
@@ -103,7 +115,7 @@ class _CopyrightLicenseWidgetState extends State<CopyrightLicenseWidget> {
                                   ),
                                 ),
                                 Text(
-                                  'Bach Giap',
+                                  username ?? '',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

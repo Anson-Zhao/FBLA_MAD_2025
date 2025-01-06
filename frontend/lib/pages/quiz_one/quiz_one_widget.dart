@@ -1,3 +1,5 @@
+import 'package:edu_venture/local_storage.dart';
+
 import '/components/back_button_widget.dart';
 import '/components/blocked_game_button_widget.dart';
 import '/components/game_button_widget.dart';
@@ -20,6 +22,7 @@ class QuizOneWidget extends StatefulWidget {
 
 class _QuizOneWidgetState extends State<QuizOneWidget> {
   late QuizOneModel _model;
+  String? username;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -27,6 +30,7 @@ class _QuizOneWidgetState extends State<QuizOneWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => QuizOneModel());
+    _loadUsername();
   }
 
   @override
@@ -34,6 +38,14 @@ class _QuizOneWidgetState extends State<QuizOneWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Future<void> _loadUsername() async {
+    String? fetchedUsername = await LocalStorage.username;
+    setState(() {
+      username =
+          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+    });
   }
 
   @override
@@ -106,7 +118,7 @@ class _QuizOneWidgetState extends State<QuizOneWidget> {
                                   ),
                                 ),
                                 Text(
-                                  'Bach Giap',
+                                  username ?? '',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -353,11 +365,28 @@ class _QuizOneWidgetState extends State<QuizOneWidget> {
                           ),
                         ),
                       ),
-                      wrapWithModel(
-                        model: _model.backButtonModel,
-                        updateCallback: () => safeSetState(() {}),
-                        child: BackButtonWidget(),
-                      ),
+                      Container(
+                        width: 60.0,
+                        height: 60.0,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondary,
+                          shape: BoxShape.circle,
+                        ),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed('Quizzes');
+                          },
+                          child: Icon(
+                            Icons.arrow_back_rounded,
+                            color: FlutterFlowTheme.of(context).primaryBackground,
+                            size: 34.0,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),

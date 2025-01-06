@@ -1,3 +1,5 @@
+import 'package:edu_venture/local_storage.dart';
+
 import '/components/back_button_widget.dart';
 import '/components/blocked_game_button_widget.dart';
 import '/components/game_button_widget.dart';
@@ -20,6 +22,7 @@ class GameOneWidget extends StatefulWidget {
 
 class _GameOneWidgetState extends State<GameOneWidget> {
   late GameOneModel _model;
+  String? username;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -27,6 +30,7 @@ class _GameOneWidgetState extends State<GameOneWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => GameOneModel());
+    _loadUsername();
   }
 
   @override
@@ -34,6 +38,14 @@ class _GameOneWidgetState extends State<GameOneWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Future<void> _loadUsername() async {
+    String? fetchedUsername = await LocalStorage.username;
+    setState(() {
+      username =
+          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+    });
   }
 
   @override
@@ -106,7 +118,7 @@ class _GameOneWidgetState extends State<GameOneWidget> {
                                   ),
                                 ),
                                 Text(
-                                  'Bach Giap',
+                                  username ?? '',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -380,13 +392,12 @@ class _GameOneWidgetState extends State<GameOneWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context.pushNamed(
-                              'HomePage'
-                            );
+                            context.pushNamed('HomePage');
                           },
                           child: Icon(
                             Icons.arrow_back_rounded,
-                            color: FlutterFlowTheme.of(context).primaryBackground,
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
                             size: 34.0,
                           ),
                         ),

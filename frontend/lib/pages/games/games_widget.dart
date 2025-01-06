@@ -1,3 +1,5 @@
+import 'package:edu_venture/local_storage.dart';
+
 import '/components/back_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -18,6 +20,7 @@ class GamesWidget extends StatefulWidget {
 
 class _GamesWidgetState extends State<GamesWidget> {
   late GamesModel _model;
+  String? username;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -25,6 +28,7 @@ class _GamesWidgetState extends State<GamesWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => GamesModel());
+    _loadUsername();
   }
 
   @override
@@ -32,6 +36,14 @@ class _GamesWidgetState extends State<GamesWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Future<void> _loadUsername() async {
+    String? fetchedUsername = await LocalStorage.username;
+    setState(() {
+      username =
+          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+    });
   }
 
   @override
@@ -104,7 +116,7 @@ class _GamesWidgetState extends State<GamesWidget> {
                                   ),
                                 ),
                                 Text(
-                                  'Bach Giap',
+                                  username ?? '',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

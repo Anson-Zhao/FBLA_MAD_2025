@@ -1,4 +1,7 @@
+import 'package:edu_venture/local_storage.dart';
+
 import '/components/achievements_track_widget.dart';
+import 'package:edu_venture/config.dart';
 import '/components/achievements_unblocked_widget.dart';
 import '/components/avhievements_blocked_widget.dart';
 import '/components/progress_bar_widget.dart';
@@ -6,6 +9,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -21,11 +25,19 @@ class ProgressPageWidget extends StatefulWidget {
 
 class _ProgressPageWidgetState extends State<ProgressPageWidget> {
   late ProgressPageModel _model;
+  String? username;
+  String? game;
+  String? quiz;
+  String? total;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
+    _loadUsername();
+    _loadGameAchievements();
+    _loadTotalAchievements();
+    _loadQuizAchievements();
     super.initState();
     _model = createModel(context, () => ProgressPageModel());
   }
@@ -35,6 +47,108 @@ class _ProgressPageWidgetState extends State<ProgressPageWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Future<void> _loadGameAchievements() async {
+    String? token = await LocalStorage.token;
+
+    try {
+      var response = await http.get(
+        Uri.parse(game_achievements),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token"
+        },
+      );
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+
+        setState(() {
+          game = data['gameAchievements'].toString();
+        });
+      } else {
+        setState(() {
+          game = "0";
+        });
+      }
+    } catch (e) {
+      // Handle exception
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('An error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _loadQuizAchievements() async {
+    String? token = await LocalStorage.token;
+
+    try {
+      var response = await http.get(
+        Uri.parse(quiz_achievements),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token"
+        },
+      );
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+
+        setState(() {
+          quiz = data['quizAchievements'].toString();
+        });
+      } else {
+        setState(() {
+          quiz = "0";
+        });
+      }
+    } catch (e) {
+      // Handle exception
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('An error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _loadTotalAchievements() async {
+    String? token = await LocalStorage.token;
+
+    try {
+      var response = await http.get(
+        Uri.parse(total_achievements),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token"
+        },
+      );
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+
+        setState(() {
+          total = data['achievements'].toString();
+        });
+      } else {
+        setState(() {
+          total = "0";
+        });
+      }
+    } catch (e) {
+      // Handle exception
+      print(e);
+    }
+  }
+
+  Future<void> _loadUsername() async {
+    String fetchedUsername = await LocalStorage.username;
+    setState(() {
+      username = fetchedUsername;
+    });
   }
 
   @override
@@ -110,7 +224,7 @@ class _ProgressPageWidgetState extends State<ProgressPageWidget> {
                                     ),
                                   ),
                                   Text(
-                                    'Bach Giap',
+                                    username ?? '',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -174,7 +288,7 @@ class _ProgressPageWidgetState extends State<ProgressPageWidget> {
                             updateCallback: () => safeSetState(() {}),
                             child: AchievementsTrackWidget(
                               text: 'Quiz Achievements',
-                              achieved: '1',
+                              achieved: quiz,
                               achievements: '2',
                             ),
                           ),
@@ -183,7 +297,7 @@ class _ProgressPageWidgetState extends State<ProgressPageWidget> {
                             updateCallback: () => safeSetState(() {}),
                             child: AchievementsTrackWidget(
                               text: 'Game Achievements',
-                              achieved: '1',
+                              achieved: game,
                               achievements: '2',
                             ),
                           ),
@@ -205,7 +319,7 @@ class _ProgressPageWidgetState extends State<ProgressPageWidget> {
                               updateCallback: () => safeSetState(() {}),
                               child: AchievementsTrackWidget(
                                 text: 'Total Achievements',
-                                achieved: '2',
+                                achieved: total,
                                 achievements: '4',
                               ),
                             ),

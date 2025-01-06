@@ -1,3 +1,5 @@
+import 'package:edu_venture/local_storage.dart';
+
 import '/components/button_widget.dart';
 import '/components/text_input_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -79,56 +81,68 @@ class _SignUpWidgetState extends State<SignUpWidget> {
         doPasswordsMatch;
   }
 
-  void registerUser() async {
-    if (_areAllFieldsValid()) {
-      String username = _model.textInputModel1.textController.text ?? '';
-      String email = _model.textInputModel2.textController.text ?? '';
-      String password = _model.textController1?.text ?? ''; // Corrected
+void registerUser() async {
+  if (_areAllFieldsValid()) {
+    String username = _model.textInputModel1.textController.text ?? '';
+    String email = _model.textInputModel2.textController.text ?? '';
+    String password = _model.textController1?.text ?? '';
 
-      print(username);
-      print(email);
-      print(password);
+    print(username);
+    print(email);
+    print(password);
 
-      var regBody = {
-        "username": username,
-        "email": email,
-        "password": password,
-      };
+    var regBody = {
+      "username": username,
+      "email": email,
+      "password": password,
+    };
 
-      try {
-        var response = await http.post(
-          Uri.parse(login),
-          headers: {"Content-Type": "application/json"},
-          body: jsonEncode(regBody),
-        );
+    try {
+      var response = await http.post(
+        Uri.parse(registration),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(regBody),
+      );
 
-        if (response.statusCode == 201) {
-          // Successfully registered
-          context.pushNamed('HomePage');
-        } else {
-          // Show error message
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Log in failed: ${response.body}'),
-            ),
-          );
-          print(response.body);
-        }
-      } catch (e) {
+      if (response.statusCode == 201) {
+        // Parse the response body
+        var data = jsonDecode(response.body);
+
+        // Extract the required fields
+        String token = data['token'];
+        int userId = data['user']['id'];
+        String username = data['user']['username'];
+        String email = data['user']['email'];
+
+        // Save the data to local storage
+        await LocalStorage.saveUserData(token, userId, username, email);
+
+        print('User data saved successfully!');
+        context.pushNamed('HomePage');
+      } else {
+        // Show error message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('An error occurred: $e'),
+            content: Text('Log in failed: ${response.body}'),
           ),
         );
+        print(response.body);
       }
-    } else {
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Please fill out all fields correctly.'),
+          content: Text('An error occurred: $e'),
         ),
       );
     }
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Please fill out all fields correctly.'),
+      ),
+    );
   }
+}
 
   @override
   Widget build(BuildContext context) {

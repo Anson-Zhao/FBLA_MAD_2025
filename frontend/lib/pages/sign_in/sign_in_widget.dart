@@ -1,3 +1,5 @@
+import 'package:edu_venture/local_storage.dart';
+
 import '/components/button_widget.dart';
 import '/components/text_input_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -77,6 +79,18 @@ class _SignInWidgetState extends State<SignInWidget> {
 
         if (response.statusCode == 200) {
           // Successfully registered
+          var data = jsonDecode(response.body);
+
+          // Extract the required fields
+          String token = data['token'];
+          int userId = data['user']['id'];
+          String username = data['user']['username'];
+          String email = data['user']['email'];
+
+          // Save the data to local storage
+          await LocalStorage.saveUserData(token, userId, username, email);
+
+          print('User data saved successfully!');
           context.pushNamed('HomePage');
         } else {
           // Show error message

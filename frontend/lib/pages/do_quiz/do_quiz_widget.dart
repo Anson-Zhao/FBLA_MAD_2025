@@ -1,3 +1,5 @@
+import 'package:edu_venture/local_storage.dart';
+
 import '/components/back_button_widget.dart';
 import '/components/button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -24,6 +26,7 @@ class DoQuizWidget extends StatefulWidget {
 
 class _DoQuizWidgetState extends State<DoQuizWidget> {
   late DoQuizModel _model;
+  String? username;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -31,6 +34,7 @@ class _DoQuizWidgetState extends State<DoQuizWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DoQuizModel());
+    _loadUsername();
   }
 
   @override
@@ -38,6 +42,14 @@ class _DoQuizWidgetState extends State<DoQuizWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Future<void> _loadUsername() async {
+    String? fetchedUsername = await LocalStorage.username;
+    setState(() {
+      username =
+          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+    });
   }
 
   @override
@@ -110,7 +122,7 @@ class _DoQuizWidgetState extends State<DoQuizWidget> {
                                   ),
                                 ),
                                 Text(
-                                  'Bach Giap',
+                                  username ?? '',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -262,23 +274,30 @@ class _DoQuizWidgetState extends State<DoQuizWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         20.0, 0.0, 20.0, 0.0),
                                     child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      context.pushNamed(
-                                        'Quiz',
-                                      );
-                                    },
-                                    child: wrapWithModel(
-                                      model: _model.buttonModel,
-                                      updateCallback: () => safeSetState(() {}),
-                                      child: ButtonWidget(
-                                        buttonLabel: 'Start',
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        context.pushNamed(
+                                          'Quiz',
+                                          queryParameters: {
+                                            'quiz_id': serializeParam(
+                                              widget.quiz,
+                                              ParamType.String,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      },
+                                      child: wrapWithModel(
+                                        model: _model.buttonModel,
+                                        updateCallback: () =>
+                                            safeSetState(() {}),
+                                        child: ButtonWidget(
+                                          buttonLabel: 'Start',
+                                        ),
                                       ),
                                     ),
-                                    ), 
                                   ),
                                 ],
                               ),
