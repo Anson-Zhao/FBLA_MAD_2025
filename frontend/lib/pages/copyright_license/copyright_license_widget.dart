@@ -166,7 +166,7 @@ class _CopyrightLicenseWidgetState extends State<CopyrightLicenseWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(
                             20.0, 0.0, 20.0, 20.0),
                         child: Text(
-                          '© 2024 EduVenture. All rights reserved.',
+                          '© 2025 EduVenture. All rights reserved.',
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
