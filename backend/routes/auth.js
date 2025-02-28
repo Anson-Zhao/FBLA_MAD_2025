@@ -45,60 +45,60 @@ router.post('/register', async (req, res) => {
     // Validate input
     if (!username || !email || !password) {
         return res.status(400).json({message: 'Username, email, and password are required'});
-    }
-
-    try {
-        // Check if the email already exists
-        const checkEmailQuery = 'SELECT id FROM users WHERE email = ?';
-        db.query(checkEmailQuery, [email], async (err, results) => {
-            if (err) {
-                console.error('Database query error:', err.message);
-                return res.status(500).json({message: 'Database error'});
-            }
-
-            if (results.length > 0) {
-                return res.status(409).json({message: 'Email is already registered'});
-            }
-
-            // Hash the password
-            const hashedPassword = await bcrypt.hash(password, 10);
-
-            // Insert the new user into the database
-            const insertQuery = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
-            db.query(insertQuery, [username, email, hashedPassword], (err, result) => {
+    } else { 
+        try {
+            // Check if the email already exists
+            const checkEmailQuery = 'SELECT id FROM users WHERE email = ?';
+            db.query(checkEmailQuery, [email], async (err, results) => {
                 if (err) {
-                    console.error('Database insertion error:', err.message);
-                    return res.status(500).json({message: 'Failed to register user'});
+                    console.error('Database query error:', err.message);
+                    return res.status(500).json({message: 'Database error'});
+                } else if (results.length > 0) {
+                    return res.status(409).json({message: 'Email is already registered'});
                 }
-
-                // Generate tokens for the newly registered user
-                const token = jwt.sign(
-                    {id: result.insertId, username, email},
-                    process.env.JWT_SECRET,
-                    {expiresIn: '182d'}
-                );
-
-                const refreshToken = jwt.sign(
-                    {id: result.insertId, username, email}, // Use result.insertId for user ID
-                    process.env.JWT_REFRESH_SECRET,
-                    {expiresIn: '182d'}
-                );
-
-                // Send success response
-                res.status(201).json({
-                    message: 'User registered successfully',
-                    token,
-                    refreshToken,
-                    user: {id: result.insertId, username, email}
+    
+                // Hash the password
+                const hashedPassword = await bcrypt.hash(password, 10);
+    
+                // Insert the new user into the database
+                const insertQuery = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
+                db.query(insertQuery, [username, email, hashedPassword], (err, result) => {
+                    if (err) {
+                        console.error('Database insertion error:', err.message);
+                        return res.status(500).json({message: 'Failed to register user'});
+                    }
+    
+                    // Generate tokens for the newly registered user
+                    const token = jwt.sign(
+                        {id: result.insertId, username, email},
+                        process.env.JWT_SECRET,
+                        {expiresIn: '182d'}
+                    );
+    
+                    const refreshToken = jwt.sign(
+                        {id: result.insertId, username, email}, // Use result.insertId for user ID
+                        process.env.JWT_REFRESH_SECRET,
+                        {expiresIn: '182d'}
+                    );
+    
+                    // Send success response
+                    res.status(201).json({
+                        message: 'User registered successfully',
+                        token,
+                        refreshToken,
+                        user: {id: result.insertId, username, email}
+                    });
+    
+                    console.log(`${username} just signed up.`);
                 });
-
-                console.log(`${username} just signed up.`);
             });
-        });
-    } catch (error) {
-        console.error('Server error:', error.message);
-        res.status(500).json({message: 'Server error'});
+        } catch (error) {
+            console.error('Server error:', error.message);
+            res.status(500).json({message: 'Server error'});
+        }
     }
+
+    
 });
 
 //Log user in 
@@ -176,9 +176,7 @@ router.post('/request-password-reset', async (req, res) => {
             if (err) {
                 console.error('Database query error:', err.message);
                 return res.status(500).json({message: 'Database error'});
-            }
-
-            if (results.length === 0) {
+            } else if (results.length === 0) {
                 return res.status(401).json({message: 'User not found'});
             }
 

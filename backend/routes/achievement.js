@@ -17,23 +17,20 @@ router.post('/new_achievement', authenticateToken, (req, res) => {
     db.query(checkQuery, [userId, achievementTypeId], (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Failed to check achievement.' });
-        }
-
-        if (results.length > 0) {
+        } else if (results.length > 0) {
             return res.status(409).json({ error: 'Achievement already exists for this user.' });
-        }
-
-        // Step 2: If not, insert the new achievement
-        const insertQuery = `
+        } else {
+            // Step 2: If not, insert the new achievement
+            const insertQuery = `
             INSERT INTO achievements (user_id, achievement_type_id) 
-            VALUES (?, ?)
-        `;
-        db.query(insertQuery, [userId, achievementTypeId], (err, results) => {
-            if (err) {
-                return res.status(500).json({ error: 'Failed to add achievement.' });
-            }
-            res.status(201).json({ message: 'Achievement added successfully.' });
-        });
+            VALUES (?, ?)`;
+            db.query(insertQuery, [userId, achievementTypeId], (err, results) => {
+                if (err) {
+                    return res.status(500).json({ error: 'Failed to add achievement.' });
+                }
+                res.status(201).json({ message: 'Achievement added successfully.' });
+            });
+        }
     });
 });
 
@@ -50,8 +47,9 @@ router.get('/games', authenticateToken, (req, res) => {
     db.query(query, [userId], (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Failed to fetch game achievements.' });
+        } else {
+            res.status(200).json({ gameAchievements: results[0].gameAchievements });
         }
-        res.status(200).json({ gameAchievements: results[0].gameAchievements });
     });
 });
 
@@ -68,8 +66,9 @@ router.get('/quizzes', authenticateToken, (req, res) => {
     db.query(query, [userId], (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Failed to fetch quiz achievements.' });
+        } else {
+            res.status(200).json({ quizAchievements: results[0].quizAchievements });
         }
-        res.status(200).json({ quizAchievements: results[0].quizAchievements });
     });
 });
 
@@ -86,8 +85,9 @@ router.get('/total', authenticateToken, (req, res) => {
     db.query(query, [userId], (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Failed to fetch total achievements.' });
+        } else {
+            res.status(200).json({ achievements: results[0].achievements });
         }
-        res.status(200).json({ achievements: results[0].achievements });
     });
 });
 
