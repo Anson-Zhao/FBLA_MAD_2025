@@ -1,9 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'achievements_track_model.dart';
 export 'achievements_track_model.dart';
 
@@ -49,16 +46,16 @@ class _AchievementsTrackWidgetState extends State<AchievementsTrackWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration(),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Align(
-            alignment: AlignmentDirectional(-1.0, 0.0),
+            alignment: const AlignmentDirectional(-1.0, 0.0),
             child: Text(
               valueOrDefault<String>(
-                widget!.text,
+                widget.text,
                 'Achievements',
               ),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -70,12 +67,12 @@ class _AchievementsTrackWidgetState extends State<AchievementsTrackWidget> {
             ),
           ),
           Align(
-            alignment: AlignmentDirectional(-1.0, 0.0),
+            alignment: const AlignmentDirectional(-1.0, 0.0),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
                   child: Container(
                     width: 49.0,
                     height: 43.0,
@@ -90,10 +87,10 @@ class _AchievementsTrackWidgetState extends State<AchievementsTrackWidget> {
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Text(
                     valueOrDefault<String>(
-                      widget!.achieved,
+                      widget.achieved,
                       '1',
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -107,21 +104,21 @@ class _AchievementsTrackWidgetState extends State<AchievementsTrackWidget> {
                   '/',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Prompt',
-                        color: Color(0x7F263238),
+                        color: const Color(0x7F263238),
                         fontSize: 48.0,
                         letterSpacing: 0.0,
                       ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.0, 1.0),
+                  alignment: const AlignmentDirectional(0.0, 1.0),
                   child: Text(
                     valueOrDefault<String>(
-                      widget!.achievements,
+                      widget.achievements,
                       '2',
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Prompt',
-                          color: Color(0x80000000),
+                          color: const Color(0x80000000),
                           fontSize: 36.0,
                           letterSpacing: 0.0,
                         ),

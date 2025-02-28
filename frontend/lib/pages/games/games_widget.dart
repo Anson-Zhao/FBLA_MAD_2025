@@ -3,11 +3,8 @@ import 'package:edu_venture/local_storage.dart';
 import '/components/back_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'games_model.dart';
 export 'games_model.dart';
 
@@ -38,11 +35,13 @@ class _GamesWidgetState extends State<GamesWidget> {
     super.dispose();
   }
 
+
+  //load username 
   Future<void> _loadUsername() async {
     String? fetchedUsername = await LocalStorage.username;
     setState(() {
       username =
-          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+          fetchedUsername; // Set username or default to 'Guest'
     });
   }
 

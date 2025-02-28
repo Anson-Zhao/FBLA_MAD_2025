@@ -3,11 +3,8 @@ import 'package:edu_venture/local_storage.dart';
 import '/components/setting_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'settings_model.dart';
 export 'settings_model.dart';
 
@@ -37,12 +34,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
 
     super.dispose();
   }
-
+  
+//load username 
   Future<void> _loadUsername() async {
     String? fetchedUsername = await LocalStorage.username;
     setState(() {
-      username =
-          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+      username = fetchedUsername; // Set username or default to 'Guest'
     });
   }
 
@@ -172,14 +169,14 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           highlightColor: Colors.transparent,
                           onTap: () async {
                             context.pushNamed(
-                                    'Profile',
-                                    queryParameters: {
-                                      'username': serializeParam(
-                                        username,
-                                        ParamType.String,
-                                      )
-                                    }.withoutNulls,
-                                  );
+                              'Profile',
+                              queryParameters: {
+                                'username': serializeParam(
+                                  username,
+                                  ParamType.String,
+                                )
+                              }.withoutNulls,
+                            );
                           },
                           child: wrapWithModel(
                             model: _model.settingButtonModel1,
@@ -195,12 +192,22 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
-                        child: wrapWithModel(
-                          model: _model.settingButtonModel2,
-                          updateCallback: () => safeSetState(() {}),
-                          child: SettingButtonWidget(
-                            buttonLabel: 'Our Social Media ',
-                            buttonColor: FlutterFlowTheme.of(context).secondary,
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed('Instruction');
+                          },
+                          child: wrapWithModel(
+                            model: _model.settingButtonModel2,
+                            updateCallback: () => safeSetState(() {}),
+                            child: SettingButtonWidget(
+                              buttonLabel: 'Instruction',
+                              buttonColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
                           ),
                         ),
                       ),
@@ -219,7 +226,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             model: _model.settingButtonModel3,
                             updateCallback: () => safeSetState(() {}),
                             child: SettingButtonWidget(
-                              buttonLabel: 'Feedback',
+                              buttonLabel: 'Feedback & Bug report',
                               buttonColor:
                                   FlutterFlowTheme.of(context).secondary,
                             ),

@@ -1,9 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'avhievements_blocked_model.dart';
 export 'avhievements_blocked_model.dart';
 
@@ -41,21 +38,21 @@ class _AvhievementsBlockedWidgetState extends State<AvhievementsBlockedWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.sizeOf(context).width * 1.0,
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration(),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Align(
-            alignment: AlignmentDirectional(-1.0, 0.0),
+            alignment: const AlignmentDirectional(-1.0, 0.0),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
               child: Container(
                 width: 100.0,
                 height: 100.0,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondary,
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       blurRadius: 12.0,
                       color: Color(0x33000000),
@@ -69,7 +66,7 @@ class _AvhievementsBlockedWidgetState extends State<AvhievementsBlockedWidget> {
                 ),
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
+                      const EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
                   child: Container(
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -82,12 +79,12 @@ class _AvhievementsBlockedWidgetState extends State<AvhievementsBlockedWidget> {
           ),
           Flexible(
             child: Align(
-              alignment: AlignmentDirectional(-1.0, 0.0),
+              alignment: const AlignmentDirectional(-1.0, 0.0),
               child: Container(
                 height: 100.0,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondary,
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       blurRadius: 12.0,
                       color: Color(0x33000000),
@@ -101,7 +98,7 @@ class _AvhievementsBlockedWidgetState extends State<AvhievementsBlockedWidget> {
                 ),
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
+                      const EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

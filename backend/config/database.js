@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+//Connect to database
 const db = mysql.createConnection({
     // host: '10.11.90.15',
     host: 'localhost',

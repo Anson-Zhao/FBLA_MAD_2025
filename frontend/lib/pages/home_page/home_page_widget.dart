@@ -2,11 +2,8 @@ import 'package:edu_venture/local_storage.dart';
 
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -42,7 +39,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   Future<void> _loadUsername() async {
     String? fetchedUsername = await LocalStorage.username;
     setState(() {
-      username = fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+      username = fetchedUsername; // Set username or default to 'Guest'
     });
   }
 
@@ -193,7 +190,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed('Games');
+                          context.pushNamed('GameOne');
                         },
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.384,
@@ -213,7 +210,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 8.0),
+                                        0.0, 0.0, 0.0, 4.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -222,7 +219,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 16.0, 0.0),
+                                                  0.0, 0.0, 8.0, 0.0),
                                           child: Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
@@ -253,7 +250,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         Icon(
                                           Icons.arrow_forward_rounded,
                                           color: Colors.white,
-                                          size: 36.0,
+                                          size: 24.0,
                                         ),
                                       ],
                                     ),
@@ -277,94 +274,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ),
                         ),
                       ),
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          context.pushNamed('SelfStudy');
-                        },
-                        child: Container(
-                          width: MediaQuery.sizeOf(context).width * 0.384,
-                          height: MediaQuery.sizeOf(context).height * 0.177,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).secondary,
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 12.0, 20.0, 12.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 8.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 16.0, 0.0),
-                                          child: Container(
-                                            height: MediaQuery.sizeOf(context)
-                                                    .height *
-                                                0.088,
-                                            decoration: BoxDecoration(
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurRadius: 12.0,
-                                                  color: Color(0x33000000),
-                                                  offset: Offset(
-                                                    0.0,
-                                                    8.0,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                            child: Icon(
-                                              Icons.menu_book_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              size: 64.0,
-                                            ),
-                                          ),
-                                        ),
-                                        Icon(
-                                          Icons.arrow_forward_rounded,
-                                          color: Colors.white,
-                                          size: 36.0,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(1.0, 0.0),
-                                    child: Text(
-                                      'Self study',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Prompt',
-                                            color: Colors.white,
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      
                     ],
                   ),
                 ),
@@ -462,7 +372,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed('Quizzes');
+                          context.pushNamed('QuizOne');
                         },
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.384,
@@ -482,7 +392,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 8.0),
+                                        0.0, 0.0, 0.0, 4.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -491,7 +401,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 16.0, 0.0),
+                                                  0.0, 0.0, 8.0, 0.0),
                                           child: Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
@@ -522,7 +432,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         Icon(
                                           Icons.arrow_forward_rounded,
                                           color: Colors.white,
-                                          size: 36.0,
+                                          size: 24.0,
                                         ),
                                       ],
                                     ),
@@ -601,7 +511,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Weekly quiz',
+                                'Quiz',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -625,43 +535,60 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 20.0, 0.0),
-                            child: Container(
-                              width: MediaQuery.sizeOf(context).width * 0.444,
-                              height: MediaQuery.sizeOf(context).height * 0.055,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primary,
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 12.0,
-                                    color: Color(0x33000000),
-                                    offset: Offset(
-                                      0.0,
-                                      8.0,
+                            child:  InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed(
+                                  'DoQuiz',
+                                  queryParameters: {
+                                    'quiz': serializeParam(
+                                      '1',
+                                      ParamType.String,
                                     ),
-                                  )
-                                ],
-                                borderRadius: BorderRadius.circular(24.0),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Continue',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Prompt',
-                                          color: Colors.white,
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_rounded,
-                                    color: Colors.white,
-                                    size: 16.0,
-                                  ),
-                                ],
+                                  }.withoutNulls,
+                                );
+                              },
+                              child: Container(
+                                width: MediaQuery.sizeOf(context).width * 0.444,
+                                height: MediaQuery.sizeOf(context).height * 0.055,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 12.0,
+                                      color: Color(0x33000000),
+                                      offset: Offset(
+                                        0.0,
+                                        8.0,
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Try now',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Prompt',
+                                            color: Colors.white,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward_rounded,
+                                      color: Colors.white,
+                                      size: 16.0,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -670,25 +597,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: AlignmentDirectional(-1.0, 0.0),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 12.0),
-                    child: Text(
-                      'New',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Prompt',
-                            color: Color(0x80263238),
-                            fontSize: 16.0,
-                            letterSpacing: 0.0,
-                          ),
-                    ),
-                  ),
-                ),
+                
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 12.0),
+                      EdgeInsetsDirectional.fromSTEB(20.0, 8.0, 20.0, 12.0),
                   child: Container(
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     decoration: BoxDecoration(
@@ -722,7 +634,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Weekly quiz',
+                                'Game',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -732,7 +644,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     ),
                               ),
                               Text(
-                                'Quiz 1',
+                                'Game 1',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -746,43 +658,64 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 20.0, 0.0),
-                            child: Container(
-                              width: MediaQuery.sizeOf(context).width * 0.444,
-                              height: MediaQuery.sizeOf(context).height * 0.055,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primary,
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 12.0,
-                                    color: Color(0x33000000),
-                                    offset: Offset(
-                                      0.0,
-                                      8.0,
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed(
+                                  'PlayGame',
+                                  queryParameters: {
+                                    'level': serializeParam(
+                                      '1',
+                                      ParamType.String,
                                     ),
-                                  )
-                                ],
-                                borderRadius: BorderRadius.circular(24.0),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Try it',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Prompt',
-                                          color: Colors.white,
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_rounded,
-                                    color: Colors.white,
-                                    size: 16.0,
-                                  ),
-                                ],
+                                    'action': serializeParam(
+                                      '+',
+                                      ParamType.String,
+                                    ),
+                                  }.withoutNulls,
+                                );
+                              },
+                              child: Container(
+                                width: MediaQuery.sizeOf(context).width * 0.444,
+                                height: MediaQuery.sizeOf(context).height * 0.055,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 12.0,
+                                      color: Color(0x33000000),
+                                      offset: Offset(
+                                        0.0,
+                                        8.0,
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Try it',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Prompt',
+                                            color: Colors.white,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward_rounded,
+                                      color: Colors.white,
+                                      size: 16.0,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
