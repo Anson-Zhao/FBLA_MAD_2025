@@ -1,11 +1,9 @@
-import 'package:edu_venture/quiz/quizScreen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
@@ -48,6 +46,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'EduVenture',
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
@@ -77,48 +76,55 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'HomePage';
-  late Widget? _currentPage;
+  final _pageController = PageController(); // PageController for sliding pages
+  int _currentIndex = 0; // Track the current index
 
   @override
-  void initState() {
-    super.initState();
-    _currentPageName = widget.initialPage ?? _currentPageName;
-    _currentPage = widget.page;
+  void dispose() {
+    _pageController.dispose(); // Dispose the PageController
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final tabs = {
-      'HomePage': HomePageWidget(),
-      'ProgressPage': ProgressPageWidget(),
-      'SelfStudy': SelfStudyWidget(),
-    };
-    final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
-
-    final MediaQueryData queryData = MediaQuery.of(context);
+    final tabs = [
+      HomePageWidget(),
+      ProgressPageWidget(),
+      SelfStudyWidget(),
+    ];
 
     return Scaffold(
-      body: MediaQuery(
-          data: queryData
-              .removeViewInsets(removeBottom: true)
-              .removeViewPadding(removeBottom: true),
-          child: _currentPage ?? tabs[_currentPageName]!),
+      body: PageView(
+        controller: _pageController,
+        physics: const ClampingScrollPhysics(), // Prevent overscroll bounce
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index; // Update the current index
+          });
+        },
+        children: tabs,
+      ),
       extendBody: true,
       bottomNavigationBar: FloatingNavbar(
-        currentIndex: currentIndex,
-        onTap: (i) => safeSetState(() {
-          _currentPage = null;
-          _currentPageName = tabs.keys.toList()[i];
-        }),
+        currentIndex: _currentIndex,
+        onTap: (i) {
+          _pageController.animateToPage(
+            i,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+          setState(() {
+            _currentIndex = i;
+          });
+        },
         backgroundColor: FlutterFlowTheme.of(context).secondary,
         selectedItemColor: FlutterFlowTheme.of(context).primary,
-        unselectedItemColor: Color(0x66FFFFFF),
-        selectedBackgroundColor: Color(0x00000000),
+        unselectedItemColor: const Color(0x66FFFFFF),
+        selectedBackgroundColor: const Color(0x00000000),
         borderRadius: 100.0,
         itemBorderRadius: 8.0,
-        margin: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
-        padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
+        margin: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
         width: MediaQuery.sizeOf(context).width * 0.514,
         elevation: 60.0,
         items: [
@@ -128,9 +134,9 @@ class _NavBarPageState extends State<NavBarPage> {
               children: [
                 Icon(
                   Icons.home_filled,
-                  color: currentIndex == 0
+                  color: _currentIndex == 0
                       ? FlutterFlowTheme.of(context).primary
-                      : Color(0x66FFFFFF),
+                      : const Color(0x66FFFFFF),
                   size: 24.0,
                 ),
               ],
@@ -142,9 +148,9 @@ class _NavBarPageState extends State<NavBarPage> {
               children: [
                 Icon(
                   Icons.bar_chart_rounded,
-                  color: currentIndex == 1
+                  color: _currentIndex == 1
                       ? FlutterFlowTheme.of(context).primary
-                      : Color(0x66FFFFFF),
+                      : const Color(0x66FFFFFF),
                   size: 24.0,
                 ),
               ],
@@ -156,16 +162,19 @@ class _NavBarPageState extends State<NavBarPage> {
               children: [
                 Icon(
                   Icons.menu_book_rounded,
-                  color: currentIndex == 2
+                  color: _currentIndex == 2
                       ? FlutterFlowTheme.of(context).primary
-                      : Color(0x66FFFFFF),
+                      : const Color(0x66FFFFFF),
                   size: 24.0,
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
 }
+
+
+

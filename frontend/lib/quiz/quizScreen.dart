@@ -1,9 +1,8 @@
-import 'package:edu_venture/config.dart';
+import 'package:edu_venture/flutter_flow/flutter_flow_theme.dart';
 import 'package:edu_venture/flutter_flow/flutter_flow_util.dart';
 import 'package:edu_venture/quiz/answerButton.dart';
 import 'package:edu_venture/quiz/fetchQuestions.dart';
 import 'package:edu_venture/quiz/progressBar.dart';
-import 'package:edu_venture/quiz/resultScreen.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -33,6 +32,9 @@ class _QuizScreenState extends State<QuizScreen> {
     fetchQuestions();
   }
 
+  void getAchievement() async {}
+
+  //fetch questions 
   Future<void> fetchQuestions() async {
     try {
       final fetchedQuestions =
@@ -48,6 +50,7 @@ class _QuizScreenState extends State<QuizScreen> {
     }
   }
 
+  //start timer 
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (remainingTime > 0) {
@@ -61,6 +64,7 @@ class _QuizScreenState extends State<QuizScreen> {
     });
   }
 
+  //restart timer 
   void restartTimer() {
     timer?.cancel();
     setState(() {
@@ -72,6 +76,7 @@ class _QuizScreenState extends State<QuizScreen> {
     startTimer();
   }
 
+  //select answer
   void selectAnswer(int selectedIndex) {
     setState(() {
       isAnswerSelected = true;
@@ -80,6 +85,126 @@ class _QuizScreenState extends State<QuizScreen> {
     });
   }
 
+  //leave to homepage 
+  Future<void> _leaveToHomePage() async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Container(
+          width: MediaQuery.sizeOf(context).width * 0.695,
+          height: MediaQuery.sizeOf(context).height * 0.216,
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(
+              color: FlutterFlowTheme.of(context).primary,
+              width: 2,
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      'Do you want to go to home page?',
+                      textAlign: TextAlign.center,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Prompt',
+                            fontSize: 24,
+                            letterSpacing: 0.0,
+                          ),
+                    ),
+                    Text(
+                      'The progress will not be saved!',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Prompt',
+                            color: Color(0x97000000),
+                            fontSize: 12,
+                            letterSpacing: 0.0,
+                          ),
+                    ),
+                  ],
+                ),
+                Align(
+                  alignment: AlignmentDirectional(0, 0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+                      timer?.cancel(); // Cancel the timer
+                      context.pop(); // Close the dialog
+                      context.pushNamed('HomePage'); // Navigate to homepage
+                    },
+                    child: Container(
+                      width: 100,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primary,
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Align(
+                        alignment: AlignmentDirectional(0, 0),
+                        child: Text(
+                          'Yes',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: 'Prompt',
+                                color: Colors.white,
+                                letterSpacing: 0.0,
+                              ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: AlignmentDirectional(0, 0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+                      Navigator.of(context).pop(); // Close the dialog
+                    },
+                    child: Align(
+                      alignment: AlignmentDirectional(0, 0),
+                      child: Text(
+                        'Cancel',
+                        style: FlutterFlowTheme.of(context)
+                            .bodyMedium
+                            .override(
+                              fontFamily: 'Prompt',
+                              color: const Color(0xFF9BA1FF),
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}
+   
+  // go to next question
   void goToNextQuestion() {
     if (selectedAnswerIndex ==
         questions[currentQuestionIndex]['correctIndex']) {
@@ -88,7 +213,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
     // Check if questions is empty or null
     int totalQuestions =
-        questions?.length ?? 0; // Use 0 if questions is null or empty
+        questions.length; // Use 0 if questions is null or empty
 
     if (currentQuestionIndex < totalQuestions - 1) {
       setState(() {
@@ -98,13 +223,22 @@ class _QuizScreenState extends State<QuizScreen> {
     } else {
       timer?.cancel();
       // Navigate using GoRouter and pass data with extra
-      context.goNamed(
+      context.pushNamed(
         'ResultPage', // The name of the route defined in GoRouter
-        extra: {
-          'correctAnswers': correctAnswers,
-          'totalQuestions':
-              totalQuestions, // Use the default value if questions is empty
-        },
+        queryParameters: {
+          'correctAnswers': serializeParam(
+            correctAnswers,
+            ParamType.int,
+          ),
+          'totalQuestions': serializeParam(
+            totalQuestions,
+            ParamType.int,
+          ),
+          'quizId': serializeParam(
+            widget.quiz_id,
+            ParamType.int,
+          ),
+        }.withoutNulls,
       );
     }
   }
@@ -210,7 +344,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                     style: const TextStyle(
                                       fontFamily: 'Prompt',
                                       color: Colors.white,
-                                      fontSize: 24,
+                                      fontSize: 18,
                                     ),
                                   ),
                                 ),
@@ -283,6 +417,28 @@ class _QuizScreenState extends State<QuizScreen> {
                         ),
                       ],
                     ),
+                  ),
+                ),
+              ),
+              Container(
+                width: 60.0,
+                height: 60.0,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).secondary,
+                  shape: BoxShape.circle,
+                ),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    _leaveToHomePage();
+                  },
+                  child: Icon(
+                    Icons.arrow_back_rounded,
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                    size: 34.0,
                   ),
                 ),
               ),

@@ -5,8 +5,8 @@ export '/pages/sign_in/sign_in_widget.dart' show SignInWidget;
 export '/pages/forgot_password/forgot_password_widget.dart'
     show ForgotPasswordWidget;
 export '/pages/notification/notification_widget.dart' show NotificationWidget;
-export '/pages/confirm_password/confirm_password_widget.dart'
-    show ConfirmPasswordWidget;
+export '/pages/reset_password/reset_password_widget.dart'
+    show ResetPasswordWidget;
 export '/pages/home_page/home_page_widget.dart' show HomePageWidget;
 export '/pages/games/games_widget.dart' show GamesWidget;
 export '/pages/progress_page/progress_page_widget.dart' show ProgressPageWidget;
@@ -26,4 +26,3 @@ export '/pages/basics/basics_widget.dart' show BasicsWidget;
 export '/pages/topic_cards/topic_cards_widget.dart' show TopicCardsWidget;
 export '/pages/profile/profile_widget.dart' show ProfileWidget;
 export '/pages/quizzes/quizzes_widget.dart' show QuizzesWidget;
-export '/testpage/testpage_widget.dart' show TestpageWidget;

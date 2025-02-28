@@ -2,14 +2,10 @@ import '/components/achievements_track_widget.dart';
 import '/components/achievements_unblocked_widget.dart';
 import '/components/avhievements_blocked_widget.dart';
 import '/components/progress_bar_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'progress_page_widget.dart' show ProgressPageWidget;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+
 
 class ProgressPageModel extends FlutterFlowModel<ProgressPageWidget> {
   ///  State fields for stateful widgets in this page.

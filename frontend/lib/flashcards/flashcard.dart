@@ -1,15 +1,16 @@
-import 'package:edu_venture/flutter_flow/flutter_flow_model.dart';
+import 'package:edu_venture/config.dart';
 import 'package:edu_venture/flutter_flow/flutter_flow_theme.dart';
 import 'package:edu_venture/flutter_flow/flutter_flow_util.dart';
 import 'package:edu_venture/local_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class FlashCardApp extends StatelessWidget {
   const FlashCardApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FlashCardPage(),
     );
@@ -17,29 +18,111 @@ class FlashCardApp extends StatelessWidget {
 }
 
 class FlashCardPage extends StatefulWidget {
+  const FlashCardPage({super.key});
+
   @override
   _FlashCardPageState createState() => _FlashCardPageState();
 }
 
 class _FlashCardPageState extends State<FlashCardPage> {
-  final List<Map<String, String>> _flashcards = []; // Fake database
+  final List<Map<String, String>> _flashcards = [];
 
-  void _addFlashCard(String topic, String description) {
-    setState(() {
-      _flashcards.add({'topic': topic, 'description': description});
-    });
+  @override
+  void initState() {
+    super.initState();
+    _fetchFlashcards(); // Fetch flashcards when the page is initialized
   }
 
-  void _deleteFlashCard(int index) {
-    setState(() {
-      _flashcards.removeAt(index);
-    });
+  
+
+  Future<void> _addFlashCard(String topic, String description) async {
+    final url = Uri.parse(add_flashcard);
+
+    try {
+      // 1. Get the userId and convert it to a String
+      String userId = (await LocalStorage.userId)?.toString() ?? '';
+
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'user_id': userId, // Now a String
+          'topic': topic,
+          'description': description,
+        }),
+      );
+
+      if (response.statusCode == 201) {
+        final newFlashcard = jsonDecode(response.body);
+        setState(() {
+          _flashcards.add({
+            'id': newFlashcard['flashcard_id'].toString(),
+            'topic': topic,
+            'description': description,
+          });
+        });
+      } else {
+        print('Failed to add flashcard: ${response.body}');
+      }
+    } catch (e) {
+      print('Error adding flashcard: $e');
+    }
+  }
+
+  Future<void> _deleteFlashCard(int index) async {
+    final flashcardId = _flashcards[index]['id']; // Use the ID from the list
+    final url = Uri.parse(
+        delete_flashcard + flashcardId!); // Replace with your backend URL
+
+    try {
+      final response = await http.delete(url);
+
+      if (response.statusCode == 200) {
+        setState(() {
+          _flashcards.removeAt(index);
+        });
+      } else {
+        print('Failed to delete flashcard: ${response.body}');
+      }
+    } catch (e) {
+      print('Error deleting flashcard: $e');
+    }
   }
 
   Future<String> fetchUsername() async {
     String? username = await LocalStorage.username;
-    return username ?? 'Guest'; // Return 'Guest' if username is null
+    return username; // Return 'Guest' if username is null
   }
+
+  Future<void> _fetchFlashcards() async {
+  try {
+    String userId = (await LocalStorage.userId)?.toString() ?? '';
+    final url = Uri.parse('$get_flashcard/$userId');
+
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final List<dynamic> flashcards = jsonDecode(response.body);
+      setState(() {
+        _flashcards.clear(); // Clear existing flashcards
+        for (var flashcard in flashcards) {
+          _flashcards.add({
+            'id': flashcard['id'].toString(),
+            'topic': flashcard['topic'],
+            'description': flashcard['description'],
+          });
+        }
+      });
+    } else {
+      print('Failed to fetch flashcards: ${response.body}');
+      // Handle errors appropriately (e.g., show a Snackbar)
+    }
+  } catch (e) {
+    print('Error fetching flashcards: $e');
+    // Handle errors (e.g., show a Snackbar)
+  }
+}
 
   void _showAddFlashCardDialog() {
     final TextEditingController topicController = TextEditingController();
@@ -367,7 +450,7 @@ class _FlashCardPageState extends State<FlashCardPage> {
                         );
                       },
                     ),
-            ),
+            )
           ],
         ),
       ),
@@ -400,7 +483,6 @@ class _FlashCardPageState extends State<FlashCardPage> {
   }
 }
 
-
 class FlashCard extends StatefulWidget {
   final String topic;
   final String description;
@@ -427,6 +509,8 @@ class _FlashCardState extends State<FlashCard>
     );
     _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
   }
+
+  
 
   void _toggleCard() {
     if (_showDescription) {

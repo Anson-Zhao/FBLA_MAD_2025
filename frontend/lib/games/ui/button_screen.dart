@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:edu_venture/games/game/go_green_game.dart';
 import 'package:edu_venture/games/game/go_green_world.dart';
-import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
 

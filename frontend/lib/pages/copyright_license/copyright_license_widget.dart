@@ -2,11 +2,9 @@ import 'package:edu_venture/local_storage.dart';
 
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'copyright_license_model.dart';
 export 'copyright_license_model.dart';
 
@@ -37,11 +35,12 @@ class _CopyrightLicenseWidgetState extends State<CopyrightLicenseWidget> {
     super.dispose();
   }
 
+  //load username 
   Future<void> _loadUsername() async {
     String? fetchedUsername = await LocalStorage.username;
     setState(() {
       username =
-          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+          fetchedUsername; // Set username or default to 'Guest'
     });
   }
 
@@ -157,41 +156,62 @@ class _CopyrightLicenseWidgetState extends State<CopyrightLicenseWidget> {
                   ),
                 ),
                 Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            20.0, 0.0, 20.0, 20.0),
-                        child: Text(
-                          '© 2024 EduVenture. All rights reserved.',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Prompt',
-                                color: FlutterFlowTheme.of(context).secondary,
-                                fontSize: 20.0,
-                                letterSpacing: 0.0,
-                              ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 64, 20, 20),
+                          child: Text(
+                            '© 2025 EduVenture. All rights reserved.',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: "Prompt",
+                                  color: FlutterFlowTheme.of(context).secondary,
+                                  fontSize: 20,
+                                  letterSpacing: 0.0,
+                                ),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            20.0, 0.0, 20.0, 0.0),
-                        child: Text(
-                          'This mobile application, including all of its content, features, and functionality, such as text, graphics, logos, icons, images, audio, video, software, and any other related material, is the exclusive property of EduVenture and is protected by international copyright, trademark, patent, and other intellectual property or proprietary rights laws.  Unauthorized copying, reproduction, distribution, modification, or any other use of this application or its contents, in whole or in part, without the express written permission of EduVenture, is strictly prohibited and may result in legal action.  For inquiries regarding licensing or permission, please contact [insert your contact email].',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Prompt',
-                                    color: Color(0x80263238),
-                                    fontSize: 12.0,
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 0, 20, 36),
+                          child: Text(
+                            'This mobile application, including all of its content, features, and functionality, such as text, graphics, logos, icons, images, audio, video, software, and any other related material, is the exclusive property of EduVenture and is protected by international copyright, trademark, patent, and other intellectual property or proprietary rights laws.  Unauthorized copying, reproduction, distribution, modification, or any other use of this application or its contents, in whole or in part, without the express written permission of EduVenture, is strictly prohibited and may result in legal action.  For inquiries regarding licensing or permission, please contact ngocbach.giap@g.northernacademy.org',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: "Prompt",
+                                  color: Color(0x80263238),
+                                  fontSize: 12,
+                                  letterSpacing: 0.0,
+                                ),
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                            child: Text(
+                              '© 2025 Northern Horizon. All rights reserved. Unauthorized reproduction or distribution of this application and all of its content is prohibited.',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: "Prompt",
+                                    fontSize: 12,
                                     letterSpacing: 0.0,
                                   ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

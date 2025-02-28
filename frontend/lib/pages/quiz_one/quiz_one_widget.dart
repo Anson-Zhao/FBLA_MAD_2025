@@ -1,17 +1,15 @@
 import 'package:edu_venture/local_storage.dart';
 
-import '/components/back_button_widget.dart';
 import '/components/blocked_game_button_widget.dart';
 import '/components/game_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'quiz_one_model.dart';
 export 'quiz_one_model.dart';
+import 'package:http/http.dart' as http;
+import 'package:edu_venture/config.dart';
 
 class QuizOneWidget extends StatefulWidget {
   const QuizOneWidget({super.key});
@@ -23,11 +21,13 @@ class QuizOneWidget extends StatefulWidget {
 class _QuizOneWidgetState extends State<QuizOneWidget> {
   late QuizOneModel _model;
   String? username;
+  int quiz = 1;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
+    _loadQuizzesAllowed();
     super.initState();
     _model = createModel(context, () => QuizOneModel());
     _loadUsername();
@@ -40,12 +40,147 @@ class _QuizOneWidgetState extends State<QuizOneWidget> {
     super.dispose();
   }
 
+  //Load username 
   Future<void> _loadUsername() async {
     String? fetchedUsername = await LocalStorage.username;
     setState(() {
       username =
-          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+          fetchedUsername; // Set username or default to 'Guest'
     });
+  }
+
+
+  //load and check quiz allowed 
+  Future<void> _loadQuizzesAllowed() async {
+    String? token = await LocalStorage.token;
+
+    try {
+      var response = await http.get(
+        Uri.parse(quizzes_allowed),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+      );
+
+      // Check if the widget is still mounted BEFORE updating state
+      if (mounted) {
+        if (response.statusCode == 200) {
+          var data = jsonDecode(response.body);
+          setState(() {
+            quiz = data['current_level']; // No need for int.parse()
+          });
+        } else {
+          // Fallback to level 1 if the API call fails
+          setState(() {
+            quiz = 1;
+          });
+        }
+      }
+    } catch (e) {
+      // Handle exception - but only if the widget is still mounted
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('An error occurred: $e'),
+          ),
+        );
+      }
+    }
+  }
+  
+  //Show dialog if user is not allowed to do this quiz 
+  Future<void> _showDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          // Use Dialog instead of AlertDialog
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Container(
+            width: MediaQuery.sizeOf(context).width * 0.695,
+            height: MediaQuery.sizeOf(context).height * 0.216,
+            decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).secondaryBackground,
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(
+                color: FlutterFlowTheme.of(context).primary,
+                width: 2,
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Oops! Please finish previous quiz!',
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Prompt',
+                              fontSize: 24,
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                      Text(
+                        'Your previous quiz score has to be more than 60!',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Prompt',
+                              color: Color(0x97000000),
+                              fontSize: 12,
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ],
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional(0, 0),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () {
+                        Navigator.of(context).pop(); // Close the dialog
+                      },
+                      child: Container(
+                        width: 100,
+                        height: 32,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primary,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Align(
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Text(
+                            'ok',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Prompt',
+                                  color:
+                                      Colors.white, // Set text color to white
+                                  letterSpacing: 0.0,
+                                ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -228,23 +363,31 @@ class _QuizOneWidgetState extends State<QuizOneWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        context.pushNamed(
-                                          'DoQuiz',
-                                          queryParameters: {
-                                            'quiz': serializeParam(
-                                              '1',
-                                              ParamType.String,
-                                            ),
-                                          }.withoutNulls,
-                                        );
+                                        if (quiz >= 1) {
+                                          context.pushNamed(
+                                            'DoQuiz',
+                                            queryParameters: {
+                                              'quiz': serializeParam(
+                                                '1',
+                                                ParamType.String,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        } else {
+                                          _showDialog();
+                                        }
                                       },
                                       child: wrapWithModel(
                                         model: _model.gameButtonModel1,
                                         updateCallback: () =>
                                             safeSetState(() {}),
-                                        child: GameButtonWidget(
-                                          text: 'Quiz lvl. 1',
-                                        ),
+                                        child: quiz >= 1
+                                            ? GameButtonWidget(
+                                                text: 'Quiz lvl. 1',
+                                              )
+                                            : BlockedGameButtonWidget(
+                                                text: 'Quiz lvl. 1',
+                                              ),
                                       ),
                                     ),
                                   ),
@@ -257,23 +400,31 @@ class _QuizOneWidgetState extends State<QuizOneWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        context.pushNamed(
-                                          'DoQuiz',
-                                          queryParameters: {
-                                            'quiz': serializeParam(
-                                              '2',
-                                              ParamType.String,
-                                            ),
-                                          }.withoutNulls,
-                                        );
+                                        if (quiz >= 2) {
+                                          context.pushNamed(
+                                            'DoQuiz',
+                                            queryParameters: {
+                                              'quiz': serializeParam(
+                                                '2',
+                                                ParamType.String,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        } else {
+                                          _showDialog();
+                                        }
                                       },
                                       child: wrapWithModel(
-                                        model: _model.gameButtonModel2,
+                                        model: _model.gameButtonModel1,
                                         updateCallback: () =>
                                             safeSetState(() {}),
-                                        child: GameButtonWidget(
-                                          text: 'Quiz lvl. 2',
-                                        ),
+                                        child: quiz >= 2
+                                            ? GameButtonWidget(
+                                                text: 'Quiz lvl. 2',
+                                              )
+                                            : BlockedGameButtonWidget(
+                                                text: 'Quiz lvl. 2',
+                                              ),
                                       ),
                                     ),
                                   ),
@@ -286,23 +437,31 @@ class _QuizOneWidgetState extends State<QuizOneWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        context.pushNamed(
-                                          'DoQuiz',
-                                          queryParameters: {
-                                            'quiz': serializeParam(
-                                              '3',
-                                              ParamType.String,
-                                            ),
-                                          }.withoutNulls,
-                                        );
+                                        if (quiz >= 3) {
+                                          context.pushNamed(
+                                            'DoQuiz',
+                                            queryParameters: {
+                                              'quiz': serializeParam(
+                                                '3',
+                                                ParamType.String,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        } else {
+                                          _showDialog();
+                                        }
                                       },
                                       child: wrapWithModel(
-                                        model: _model.blockedGameButtonModel1,
+                                        model: _model.gameButtonModel1,
                                         updateCallback: () =>
                                             safeSetState(() {}),
-                                        child: BlockedGameButtonWidget(
-                                          text: 'Quiz lvl. 3',
-                                        ),
+                                        child: quiz >= 3
+                                            ? GameButtonWidget(
+                                                text: 'Quiz lvl. 3',
+                                              )
+                                            : BlockedGameButtonWidget(
+                                                text: 'Quiz lvl. 3',
+                                              ),
                                       ),
                                     ),
                                   ),
@@ -315,23 +474,31 @@ class _QuizOneWidgetState extends State<QuizOneWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        context.pushNamed(
-                                          'DoQuiz',
-                                          queryParameters: {
-                                            'quiz': serializeParam(
-                                              '4',
-                                              ParamType.String,
-                                            ),
-                                          }.withoutNulls,
-                                        );
+                                        if (quiz >= 4) {
+                                          context.pushNamed(
+                                            'DoQuiz',
+                                            queryParameters: {
+                                              'quiz': serializeParam(
+                                                '4',
+                                                ParamType.String,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        } else {
+                                          _showDialog();
+                                        }
                                       },
                                       child: wrapWithModel(
-                                        model: _model.blockedGameButtonModel2,
+                                        model: _model.gameButtonModel1,
                                         updateCallback: () =>
                                             safeSetState(() {}),
-                                        child: BlockedGameButtonWidget(
-                                          text: 'Quiz lvl. 4',
-                                        ),
+                                        child: quiz >= 4
+                                            ? GameButtonWidget(
+                                                text: 'Quiz lvl. 4',
+                                              )
+                                            : BlockedGameButtonWidget(
+                                                text: 'Quiz lvl. 4',
+                                              ),
                                       ),
                                     ),
                                   ),
@@ -341,22 +508,30 @@ class _QuizOneWidgetState extends State<QuizOneWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pushNamed(
-                                        'DoQuiz',
-                                        queryParameters: {
-                                          'quiz': serializeParam(
-                                            '5',
-                                            ParamType.String,
-                                          ),
-                                        }.withoutNulls,
-                                      );
+                                      if (quiz >= 5) {
+                                        context.pushNamed(
+                                          'DoQuiz',
+                                          queryParameters: {
+                                            'quiz': serializeParam(
+                                              '5',
+                                              ParamType.String,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      } else {
+                                        _showDialog();
+                                      }
                                     },
                                     child: wrapWithModel(
-                                      model: _model.blockedGameButtonModel3,
+                                      model: _model.gameButtonModel1,
                                       updateCallback: () => safeSetState(() {}),
-                                      child: BlockedGameButtonWidget(
-                                        text: 'Quiz lvl. 5',
-                                      ),
+                                      child: quiz >= 5
+                                          ? GameButtonWidget(
+                                              text: 'Quiz lvl. 5',
+                                            )
+                                          : BlockedGameButtonWidget(
+                                              text: 'Quiz lvl. 5',
+                                            ),
                                     ),
                                   ),
                                 ],
@@ -378,11 +553,12 @@ class _QuizOneWidgetState extends State<QuizOneWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context.pushNamed('Quizzes');
+                            context.pushNamed('HomePage');
                           },
                           child: Icon(
                             Icons.arrow_back_rounded,
-                            color: FlutterFlowTheme.of(context).primaryBackground,
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
                             size: 34.0,
                           ),
                         ),

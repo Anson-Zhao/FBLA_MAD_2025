@@ -1,15 +1,10 @@
 import 'package:edu_venture/local_storage.dart';
 
-import '/components/back_button_widget.dart';
-import '/components/blocked_game_button_widget.dart';
 import '/components/game_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'game_one_model.dart';
 export 'game_one_model.dart';
 
@@ -40,11 +35,13 @@ class _GameOneWidgetState extends State<GameOneWidget> {
     super.dispose();
   }
 
+
+  //load username
   Future<void> _loadUsername() async {
     String? fetchedUsername = await LocalStorage.username;
     setState(() {
       username =
-          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+          fetchedUsername; // Set username or default to 'Guest'
     });
   }
 
@@ -177,7 +174,7 @@ class _GameOneWidgetState extends State<GameOneWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 64.0),
                           child: Text(
-                            'Game 1',
+                            'Race game',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -239,6 +236,10 @@ class _GameOneWidgetState extends State<GameOneWidget> {
                                               '+',
                                               ParamType.String,
                                             ),
+                                            'text': serializeParam(
+                                              'Oh ho! Look who’s found their way to their first game! I am sure this won’t be a challenge, just some simple addition! Hope you have a few hundred fingers…',
+                                              ParamType.String
+                                            ),
                                           }.withoutNulls,
                                         );
                                       },
@@ -269,6 +270,10 @@ class _GameOneWidgetState extends State<GameOneWidget> {
                                             'action': serializeParam(
                                               '-',
                                               ParamType.String,
+                                            ),
+                                            'text': serializeParam(
+                                              'If you could add things together, why not take them apart? Introducing…subtraction! Just a fancier name for adding negative numbers really…',
+                                              ParamType.String
                                             ),
                                           }.withoutNulls,
                                         );
@@ -303,14 +308,18 @@ class _GameOneWidgetState extends State<GameOneWidget> {
                                               '*',
                                               ParamType.String,
                                             ),
+                                            'text': serializeParam(
+                                              'One times one is one…two times two is four…gosh this would take forever! Hope you don’t run out of time trying to count up the multiplication table…',
+                                              ParamType.String
+                                            ),
                                           }.withoutNulls,
                                         );
                                       },
                                       child: wrapWithModel(
-                                        model: _model.blockedGameButtonModel1,
+                                        model: _model.gameButtonModel3,
                                         updateCallback: () =>
                                             safeSetState(() {}),
-                                        child: BlockedGameButtonWidget(
+                                        child: GameButtonWidget(
                                           text: 'Level 3',
                                         ),
                                       ),
@@ -336,40 +345,20 @@ class _GameOneWidgetState extends State<GameOneWidget> {
                                               '/',
                                               ParamType.String,
                                             ),
+                                            'text': serializeParam(
+                                              'Now now…I know you got through those three gammes unscathed, but this might just be your demise…hope you love decimals because we sure included ugly numbers…',
+                                              ParamType.String
+                                            ),
                                           }.withoutNulls,
                                         );
                                       },
                                       child: wrapWithModel(
-                                        model: _model.blockedGameButtonModel2,
+                                        model: _model.gameButtonModel4,
                                         updateCallback: () =>
                                             safeSetState(() {}),
-                                        child: BlockedGameButtonWidget(
+                                        child: GameButtonWidget(
                                           text: 'Level 4',
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      context.pushNamed(
-                                        'PlayGame',
-                                        queryParameters: {
-                                          'level': serializeParam(
-                                            '5',
-                                            ParamType.String,
-                                          ),
-                                        }.withoutNulls,
-                                      );
-                                    },
-                                    child: wrapWithModel(
-                                      model: _model.blockedGameButtonModel3,
-                                      updateCallback: () => safeSetState(() {}),
-                                      child: BlockedGameButtonWidget(
-                                        text: 'Level 5',
                                       ),
                                     ),
                                   ),

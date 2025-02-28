@@ -1,8 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'text_input_model.dart';
 export 'text_input_model.dart';
 
@@ -10,9 +8,11 @@ class TextInputWidget extends StatefulWidget {
   const TextInputWidget({
     super.key,
     this.hint,
+    this.validator,
   });
 
   final String? hint;
+  final String? Function(String?)? validator;
 
   @override
   State<TextInputWidget> createState() => _TextInputWidgetState();
@@ -58,14 +58,14 @@ class _TextInputWidgetState extends State<TextInputWidget> {
                 fontFamily: 'Prompt',
                 letterSpacing: 0.0,
               ),
-          hintText: widget!.hint,
+          hintText: widget.hint,
           hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
                 fontFamily: 'Prompt',
-                color: Color(0x80263238),
+                color: const Color(0x80263238),
                 letterSpacing: 0.0,
               ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Color(0x40263238),
               width: 2.0,
             ),
@@ -95,14 +95,14 @@ class _TextInputWidgetState extends State<TextInputWidget> {
           filled: true,
           fillColor: FlutterFlowTheme.of(context).secondaryBackground,
           contentPadding:
-              EdgeInsetsDirectional.fromSTEB(14.0, 14.0, 14.0, 14.0),
+              const EdgeInsetsDirectional.fromSTEB(14.0, 14.0, 14.0, 14.0),
         ),
         style: FlutterFlowTheme.of(context).bodyMedium.override(
               fontFamily: 'Prompt',
               letterSpacing: 0.0,
             ),
         cursorColor: FlutterFlowTheme.of(context).primaryText,
-        validator: _model.textControllerValidator.asValidator(context),
+        validator: widget.validator,
       ),
     );
   }

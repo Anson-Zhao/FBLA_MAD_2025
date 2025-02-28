@@ -73,4 +73,15 @@ class LocalStorage {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('email');
   }
+
+    static Future<void> updateUsername(String newUsername) async {
+    if (newUsername.trim().isEmpty) {
+      throw Exception('Username cannot be empty');
+    }
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', newUsername); // Update in SharedPreferences
+    _cachedUsername = newUsername; // Update cache
+    print('Username updated successfully!');
+  }
 }

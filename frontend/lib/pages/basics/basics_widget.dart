@@ -4,11 +4,8 @@ import '/components/back_button_widget.dart';
 import '/components/subject_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'basics_model.dart';
 export 'basics_model.dart';
 
@@ -43,7 +40,7 @@ class _BasicsWidgetState extends State<BasicsWidget> {
     String? fetchedUsername = await LocalStorage.username;
     setState(() {
       username =
-          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+          fetchedUsername; // Set username or default to 'Guest'
     });
   }
 
