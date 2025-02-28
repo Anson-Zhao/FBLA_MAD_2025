@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 class QuizService {
   final String quiz_id;
   // final String baseUrl = 'http://localhost:3000';
-  final String baseUrl = 'http://mad2025.northernhorizon:9094';
+  final String baseUrl = 'http://mad2025.northernhorizon.org:9094';
   // final String baseUrl = Platform.isAndroid ? "http://10.0.2.2:3000" : "http://10.11.20.195:3000";
 
   QuizService({required this.quiz_id}); // Replace with your actual API URL
