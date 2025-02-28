@@ -3,11 +3,8 @@ import 'package:edu_venture/local_storage.dart';
 import '/components/back_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'topic_cards_model.dart';
 export 'topic_cards_model.dart';
 
@@ -50,7 +47,7 @@ class _TopicCardsWidgetState extends State<TopicCardsWidget> {
     String? fetchedUsername = await LocalStorage.username;
     setState(() {
       username =
-          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+          fetchedUsername; // Set username or default to 'Guest'
     });
   }
 
@@ -190,16 +187,18 @@ class _TopicCardsWidgetState extends State<TopicCardsWidget> {
                                   ),
                         ),
                       ),
-                      Align(
-                        alignment: AlignmentDirectional(-1.0, 0.0),
-                        child: Text(
-                          widget!.topic,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Prompt',
-                                    fontSize: 24.0,
-                                    letterSpacing: 0.0,
-                                  ),
+                      Flexible(
+                        child: Align(
+                          alignment: AlignmentDirectional(-1.0, 0.0),
+                          child: Text(
+                            widget.topic,
+                            style:
+                                FlutterFlowTheme.of(context).bodyMedium.override(
+                                      fontFamily: 'Prompt',
+                                      fontSize: 24.0,
+                                      letterSpacing: 0.0,
+                                    ),
+                          ),
                         ),
                       ),
                     ],
@@ -254,7 +253,7 @@ class _TopicCardsWidgetState extends State<TopicCardsWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 20.0, 0.0),
                                 child: Text(
-                                  widget!.text,
+                                  widget.text,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

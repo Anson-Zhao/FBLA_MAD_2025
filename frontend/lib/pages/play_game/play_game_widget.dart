@@ -1,14 +1,10 @@
 import 'package:edu_venture/local_storage.dart';
 
-import '/components/back_button_widget.dart';
 import '/components/button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'play_game_model.dart';
 export 'play_game_model.dart';
 
@@ -17,11 +13,14 @@ class PlayGameWidget extends StatefulWidget {
     super.key,
     String? level,
     String? action,
+    String? text,
   })  : this.level = level ?? '1',
-        this.action = action ?? '+';
+        this.action = action ?? '+',
+        this.text = text ?? 'This mobile application, including all of its content, features, and functionality, such as text, graphics, logos, icons, images, audio, video, software, and any other related material, is the exclusive property of EduVenture and is protected by international copyright, trademark, patent, and other intellectual property or proprietary rights laws.';
 
   final String level;
   final String action;
+  final String text;
 
   @override
   State<PlayGameWidget> createState() => _PlayGameWidgetState();
@@ -47,11 +46,11 @@ class _PlayGameWidgetState extends State<PlayGameWidget> {
     super.dispose();
   }
 
+  //load username 
   Future<void> _loadUsername() async {
     String? fetchedUsername = await LocalStorage.username;
     setState(() {
-      username =
-          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+      username = fetchedUsername; // Set username or default to 'Guest'
     });
   }
 
@@ -250,7 +249,7 @@ class _PlayGameWidgetState extends State<PlayGameWidget> {
                                               ),
                                         ),
                                         Text(
-                                          widget!.level,
+                                          widget.level,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -266,7 +265,7 @@ class _PlayGameWidgetState extends State<PlayGameWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 64.0),
                                     child: Text(
-                                      'This mobile application, including all of its content, features, and functionality, such as text, graphics, logos, icons, images, audio, video, software, and any other related material, is the exclusive property of EduVenture and is protected by international copyright, trademark, patent, and other intellectual property or proprietary rights laws.',
+                                      widget.text,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -292,6 +291,9 @@ class _PlayGameWidgetState extends State<PlayGameWidget> {
                                                     .action, // Pass the desired operation sign here
                                                 ParamType.String,
                                               ),
+                                              'level': serializeParam(
+                                                  widget.level,
+                                                  ParamType.String)
                                             });
                                       },
                                       child: wrapWithModel(
@@ -310,11 +312,29 @@ class _PlayGameWidgetState extends State<PlayGameWidget> {
                           ),
                         ),
                       ),
-                      wrapWithModel(
-                        model: _model.backButtonModel,
-                        updateCallback: () => safeSetState(() {}),
-                        child: BackButtonWidget(),
-                      ),
+                      Container(
+                        width: 60.0,
+                        height: 60.0,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondary,
+                          shape: BoxShape.circle,
+                        ),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed('GameOne');
+                          },
+                          child: Icon(
+                            Icons.arrow_back_rounded,
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            size: 34.0,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),

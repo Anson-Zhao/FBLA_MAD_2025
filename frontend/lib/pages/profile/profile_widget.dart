@@ -1,3 +1,4 @@
+import 'package:edu_venture/config.dart';
 import 'package:edu_venture/local_storage.dart';
 
 import '/components/back_button_widget.dart';
@@ -6,13 +7,11 @@ import '/components/edit_widget.dart';
 import '/components/stroke_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'profile_model.dart';
 export 'profile_model.dart';
+import 'package:http/http.dart' as http;
 
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget({
@@ -29,6 +28,8 @@ class ProfileWidget extends StatefulWidget {
 class _ProfileWidgetState extends State<ProfileWidget> {
   late ProfileModel _model;
   String? username;
+  String? email;
+  String? total;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -37,6 +38,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     super.initState();
     _model = createModel(context, () => ProfileModel());
     _loadUsername();
+    _loadTotalAchievements();
+    _loadUserEmail();
   }
 
   @override
@@ -44,14 +47,51 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     _model.dispose();
 
     super.dispose();
+  }
 
+  Future<void> _loadTotalAchievements() async {
+    String? token = await LocalStorage.token;
+
+    try {
+      var response = await http.get(
+        Uri.parse(total_achievements),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token"
+        },
+      );
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+
+        if (mounted) {
+          setState(() {
+            total = data['achievements'].toString();
+          });
+        }
+      } else {
+        setState(() {
+          total = "0";
+        });
+      }
+    } catch (e) {
+      // Handle exception
+      print(e);
+    }
+  }
+
+  Future<void> _loadUserEmail() async {
+    String? fetchedUserEmail = await LocalStorage.email;
+    setState(() {
+      email = fetchedUserEmail ?? 'Guest'; // Set username or default to 'Guest'
+    });
   }
 
   Future<void> _loadUsername() async {
     String? fetchedUsername = await LocalStorage.username;
     setState(() {
       username =
-          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+          fetchedUsername; // Set username or default to 'Guest'
     });
   }
 
@@ -220,7 +260,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           ),
                                     ),
                                     Text(
-                                      'helooloo@gmail.com',
+                                      email ?? '',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -246,7 +286,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             ),
                                       ),
                                       Text(
-                                        '1',
+                                        total ?? '',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(

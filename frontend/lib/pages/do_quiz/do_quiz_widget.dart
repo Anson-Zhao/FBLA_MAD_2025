@@ -1,16 +1,14 @@
 import 'package:edu_venture/local_storage.dart';
 
-import '/components/back_button_widget.dart';
 import '/components/button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'do_quiz_model.dart';
 export 'do_quiz_model.dart';
+import 'package:http/http.dart' as http;
+import 'package:edu_venture/config.dart';
 
 class DoQuizWidget extends StatefulWidget {
   const DoQuizWidget({
@@ -27,6 +25,7 @@ class DoQuizWidget extends StatefulWidget {
 class _DoQuizWidgetState extends State<DoQuizWidget> {
   late DoQuizModel _model;
   String? username;
+  String? score;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -35,6 +34,7 @@ class _DoQuizWidgetState extends State<DoQuizWidget> {
     super.initState();
     _model = createModel(context, () => DoQuizModel());
     _loadUsername();
+    _loadQuizScore();
   }
 
   @override
@@ -48,8 +48,45 @@ class _DoQuizWidgetState extends State<DoQuizWidget> {
     String? fetchedUsername = await LocalStorage.username;
     setState(() {
       username =
-          fetchedUsername ?? 'Guest'; // Set username or default to 'Guest'
+          fetchedUsername; // Set username or default to 'Guest'
     });
+  }
+
+  Future<void> _loadQuizScore() async {
+    String? token = await LocalStorage.token;
+
+    try {
+      var response = await http.get(
+        Uri.parse(quiz_score_by_id + (widget.quiz).toString()),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token"
+        },
+      );
+
+      // Check if the widget is still mounted BEFORE updating state
+      if (mounted) {
+        if (response.statusCode == 200) {
+          var data = jsonDecode(response.body);
+          setState(() {
+            score = data['score'].toString();
+          });
+        } else {
+          setState(() {
+            score = "0";
+          });
+        }
+      }
+    } catch (e) {
+      // Handle exception - but only if the widget is still mounted
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('An error occurred: $e'),
+          ),
+        );
+      }
+    }
   }
 
   @override
@@ -243,7 +280,7 @@ class _DoQuizWidgetState extends State<DoQuizWidget> {
                                       ),
                                       Text(
                                         valueOrDefault<String>(
-                                          widget!.quiz,
+                                          widget.quiz,
                                           '1',
                                         ),
                                         style: FlutterFlowTheme.of(context)
@@ -258,7 +295,7 @@ class _DoQuizWidgetState extends State<DoQuizWidget> {
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 64.0),
+                                        0.0, 0.0, 0.0, 32.0),
                                     child: Text(
                                       'This mobile application, including all of its content, features, and functionality, such as text, graphics, logos, icons, images, audio, video, software, and any other related material, is the exclusive property of EduVenture and is protected by international copyright, trademark, patent, and other intellectual property or proprietary rights laws.',
                                       style: FlutterFlowTheme.of(context)
@@ -268,6 +305,20 @@ class _DoQuizWidgetState extends State<DoQuizWidget> {
                                             color: Color(0x7F263238),
                                             letterSpacing: 0.0,
                                           ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 16.0),
+                                    child: Text(
+                                      'Your best score: ${score}',
+                                      style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Prompt',
+                                          fontSize: 15.0,
+                                          letterSpacing: 0.0,
+                                        ),
                                     ),
                                   ),
                                   Padding(
@@ -305,11 +356,29 @@ class _DoQuizWidgetState extends State<DoQuizWidget> {
                           ),
                         ),
                       ),
-                      wrapWithModel(
-                        model: _model.backButtonModel,
-                        updateCallback: () => safeSetState(() {}),
-                        child: BackButtonWidget(),
-                      ),
+                      Container(
+                        width: 60.0,
+                        height: 60.0,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondary,
+                          shape: BoxShape.circle,
+                        ),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed('QuizOne');
+                          },
+                          child: Icon(
+                            Icons.arrow_back_rounded,
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            size: 34.0,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),

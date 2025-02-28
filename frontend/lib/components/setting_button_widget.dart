@@ -1,8 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'setting_button_model.dart';
 export 'setting_button_model.dart';
 
@@ -11,7 +9,7 @@ class SettingButtonWidget extends StatefulWidget {
     super.key,
     this.buttonLabel,
     Color? buttonColor,
-  }) : this.buttonColor = buttonColor ?? const Color(0xFF9BA1FF);
+  }) : buttonColor = buttonColor ?? const Color(0xFF9BA1FF);
 
   final String? buttonLabel;
   final Color buttonColor;
@@ -54,10 +52,10 @@ class _SettingButtonWidgetState extends State<SettingButtonWidget> {
       child: Align(
         alignment: AlignmentDirectional(-1.0, 0.0),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
           child: Text(
             valueOrDefault<String>(
-              widget!.buttonLabel,
+              widget.buttonLabel,
               'text',
             ),
             style: FlutterFlowTheme.of(context).labelMedium.override(

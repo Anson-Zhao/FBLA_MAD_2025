@@ -1,8 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'stroke_button_model.dart';
 export 'stroke_button_model.dart';
 
@@ -10,7 +8,7 @@ class StrokeButtonWidget extends StatefulWidget {
   const StrokeButtonWidget({
     super.key,
     String? buttonLabel,
-  }) : this.buttonLabel = buttonLabel ?? 'text';
+  }) : buttonLabel = buttonLabel ?? 'text';
 
   final String buttonLabel;
 
@@ -54,9 +52,9 @@ class _StrokeButtonWidgetState extends State<StrokeButtonWidget> {
         ),
       ),
       child: Align(
-        alignment: AlignmentDirectional(0.0, 0.0),
+        alignment: const AlignmentDirectional(0.0, 0.0),
         child: Text(
-          widget!.buttonLabel,
+          widget.buttonLabel,
           style: FlutterFlowTheme.of(context).labelMedium.override(
                 fontFamily: 'Prompt',
                 color: FlutterFlowTheme.of(context).primary,

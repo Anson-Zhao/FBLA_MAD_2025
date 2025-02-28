@@ -8,6 +8,8 @@ const quizRoutes = require('./routes/quiz');
 const userRoutes = require('./routes/user');
 const achievemenRoutes = require('./routes/achievement');
 const tokenRoutes = require('./routes/tokenRoutes');
+const feedbackRoutes = require('./routes/feedback');
+const flashcardsRoutes = require('./routes/flashcards');
 
 const app = express();
 
@@ -22,5 +24,7 @@ app.use('/quiz', quizRoutes);
 app.use('/user', userRoutes);
 app.use('/achievement', achievemenRoutes);
 app.use('/api', tokenRoutes);
+app.use('/feedback', feedbackRoutes);
+app.use('/flashcards', flashcardsRoutes);
 
 module.exports = app;

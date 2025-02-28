@@ -3,6 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+    <intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <!-- Accepts URIs that begin with "example://gizmos” -->
+    <!-- Registered Callback URLs in TwitterApp -->
+    <data android:scheme="yourapp://callback"
+            android:host="gizmos" /> <!-- host is option -->
+    </intent-filter>
 
     <application
         android:label="EduVenture"

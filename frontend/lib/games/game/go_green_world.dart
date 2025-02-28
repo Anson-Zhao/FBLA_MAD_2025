@@ -1,9 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:ui';
-
-
-import 'package:edu_venture/flutter_flow/flutter_flow_util.dart';
 import 'package:edu_venture/games/background_elements/background.dart';
 import 'package:edu_venture/games/background_elements/finish.dart';
 import 'package:edu_venture/games/background_elements/road.dart';
@@ -19,8 +15,8 @@ import 'package:flame/components.dart';
 class GoGreenWorld extends World with HasGameRef<GoGreenGame> {
   final Random _random = Random();
   final List<int> numbers;
-  final String action;
-  final VoidCallback onGameEnd; // Callback for navigation
+  final String action;// Callback for navigation
+  final Function(bool didPlayerWin) onGameEnd; // Callback for navigation with win/loss status
 
   Car? playerCar;
   AiCar? aiCar;
@@ -33,7 +29,7 @@ class GoGreenWorld extends World with HasGameRef<GoGreenGame> {
   bool newQuestion = false;
   bool isPaused = false;
 
-  GoGreenWorld(this.numbers, this.action, {required this.onGameEnd});
+  GoGreenWorld(this.action, this.numbers, {required this.onGameEnd});
 
   List<int> generateUniqueAnswers(
       int correctAnswer, int numAnswers, int min, int max) {
@@ -91,15 +87,7 @@ class GoGreenWorld extends World with HasGameRef<GoGreenGame> {
   } else if (action == '*') {
     correctAnswer = numbers[0] * numbers[1];
   } else if (action == '/') {
-    // Generate valid numbers for division
-    numbers[1] = _random.nextInt(9) + 1; // numbers[1] is between 1 and 9 (non-zero)
-
-    // Ensure numbers[0] is divisible by numbers[1]
-    int multiplier = _random.nextInt(10) + 1; // Random multiplier (between 1 and 10)
-    numbers[0] = numbers[1] * multiplier; // numbers[0] is guaranteed to be a multiple of numbers[1]
-
-    // Correct answer: integer division
-    correctAnswer = numbers[0] ~/ numbers[1]; // Use integer division to ensure an integer result
+    correctAnswer = numbers[0] ~/ numbers[1]; 
   } else { // Default to subtraction case
     correctAnswer = numbers[0] - numbers[1];
   }
@@ -137,20 +125,33 @@ class GoGreenWorld extends World with HasGameRef<GoGreenGame> {
   }
 
   void _updateNumbersForNewQuestion() {
-    numbers[0] = _random.nextInt(10);
-    numbers[1] = _random.nextInt(10);
+    if (action == '/') {
+      numbers[1] = _random.nextInt(9) + 1; // numbers[1] is between 1 and 9 (non-zero)
+
+      // Ensure numbers[0] is divisible by numbers[1]
+      int multiplier = _random.nextInt(10) + 1; // Random multiplier (between 1 and 10)
+      numbers[0] = numbers[1] * multiplier; // numbers[0] is guaranteed to be a multiple of numbers[1]
+    } else {
+      numbers[0] = _random.nextInt(10);
+      numbers[1] = _random.nextInt(10);
+    }
   }
 
-  void stopAllMovement() {
+   void stopAllMovement() {
     if (isPaused) return;
 
     isPaused = true;
     background?.stopBackground();
     road?.stopRoad();
-    onGameEnd(); // Trigger navigation
+
+    // Determine the winner based on progress
+    bool didPlayerWin = progressBar.playerProgress >= progressBar.aiProgress;
+
+    onGameEnd(didPlayerWin); // Trigger navigation with win/loss status
 
     print("Game has ended, all movement stopped.");
   }
+
 
  @override
   void update(double dt) {

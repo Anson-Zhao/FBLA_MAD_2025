@@ -2,8 +2,11 @@ import 'dart:async';
 
 import 'package:edu_venture/flashcards/flashcard.dart';
 import 'package:edu_venture/games/app.dart';
-import 'package:edu_venture/local_storage.dart';
 import 'package:edu_venture/pages/game_end/game_end_widget.dart';
+import 'package:edu_venture/pages/instruction/instruction_widget.dart';
+import 'package:edu_venture/pages/lost_game/lost_game_widget.dart';
+import 'package:edu_venture/pages/reset_password/reset_password_widget.dart';
+import 'package:edu_venture/pages/win_game/win_game_widget.dart';
 import 'package:edu_venture/quiz/quizScreen.dart';
 import 'package:edu_venture/quiz/resultScreen.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +16,6 @@ import 'package:provider/provider.dart';
 
 import '/index.dart';
 import '/main.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/lat_lng.dart';
-import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'serialization_util.dart';
 
@@ -52,12 +52,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/resultPage',
           builder: (context, params) {
             // Use a fallback value of 0 if correctAnswers or totalQuestions is null
-            final correctAnswers = params.getParam<int>('correctAnswers', ParamType.int) ?? 0;
-            final totalQuestions = params.getParam<int>('totalQuestions', ParamType.int) ?? 0;
+            final correctAnswers =
+                params.getParam<int>('correctAnswers', ParamType.int) ?? 0;
+            final totalQuestions =
+                params.getParam<int>('totalQuestions', ParamType.int) ?? 0;
+            final quizId =
+                params.getParam<int>('quizId', ParamType.int) ?? "0";
 
             return ResultScreen(
               correctAnswers: correctAnswers,
               totalQuestions: totalQuestions,
+              quizId: quizId,
             );
           },
         ),
@@ -72,11 +77,40 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, _) => GameEndWidget(),
         ),
         FFRoute(
+          name: 'WonGame',
+          path: '/wonGame',
+          builder: (context, params) => WinGameWidget(
+            level: params.getParam(
+              'level',
+              ParamType.String,
+            ),
+            action: params.getParam(
+              'action',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'LostGame',
+          path: '/lostGame',
+          builder: (context, params) => LostGameWidget(
+            level: params.getParam(
+              'level',
+              ParamType.String,
+            ),
+            action: params.getParam(
+              'action',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
           name: 'CarGame',
           path: '/cargame',
           builder: (context, params) => GameMath(
-            sign: params.getParam('sign', ParamType.String) ?? '+', // Default to '+'
-          ),
+              sign: params.getParam('sign', ParamType.String) ??
+                  '+', // Default to '+'
+              level: params.getParam('level', ParamType.String) ?? '1'),
         ),
         FFRoute(
           name: '_initialize',
@@ -109,9 +143,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => NotificationWidget(),
         ),
         FFRoute(
-          name: 'ConfirmPassword',
-          path: '/confirmPassword',
-          builder: (context, params) => ConfirmPasswordWidget(),
+          name: 'ResetPassword',
+          path: '/resetPassword',
+          builder: (context, params) => ResetPasswordWidget(),
         ),
         FFRoute(
           name: 'HomePage',
@@ -144,15 +178,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             quiz_id: params.getParam(
               'quiz_id',
               ParamType.String,
-            ),),
+            ) ?? "1",
+          ),
         ),
         FFRoute(
           name: 'CopyrightLicense',
           path: '/copyrightLicense',
-          builder: (context, params) => NavBarPage(
-            initialPage: '',
-            page: CopyrightLicenseWidget(),
-          ),
+          builder: (context, params) => CopyrightLicenseWidget(),
+        ),
+        FFRoute(
+          name: 'Instruction',
+          path: '/instruction',
+          builder: (context, params) => InstructionWidget(),
         ),
         FFRoute(
           name: 'Feedback',
@@ -171,11 +208,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             level: params.getParam(
               'level',
               ParamType.String,
-            ), 
+            ),
             action: params.getParam(
               'action',
               ParamType.String,
-              ),
+            ),
+            text: params.getParam(
+              'text',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
