@@ -129,13 +129,13 @@ router.post('/login', async (req, res) => {
                         // Generate JWT token
                         const token = jwt.sign(
                             {id: user.id, username: user.username, email: user.email},
-                            "your_secret_key",
+                            process.env.JWT_SECRET,
                             {expiresIn: '182d'}
                         );
 
                         const refreshToken = jwt.sign(
                             {id: user.id, username: user.username, email: user.email},
-                            "refresh_secret_key",
+                            process.env.JWT_REFRESH_SECRET,
                             {expiresIn: '182d'}
                         );
 
