@@ -14,7 +14,8 @@ const app = express();
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(helmet());
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:3000' }));
+// app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'http://mad2025.northernhorizon.org:9094' }));
 app.use(passport.initialize());
 
 app.use('/auth', authRoutes);
