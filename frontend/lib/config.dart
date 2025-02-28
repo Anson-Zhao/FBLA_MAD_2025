@@ -1,7 +1,7 @@
 import 'dart:io';
 
-final url =
-    Platform.isAndroid ? "http://10.0.2.2:3000/" : "http://10.11.20.195:3000/";
+// final url =
+//     Platform.isAndroid ? "http://10.0.2.2:3000/" : "http://10.11.20.195:3000/";
 final registration = url + "auth/register"; //endpoint register the user
 final login = url + "auth/login";//endpoint login the user
 final game_achievements = url + "achievement/games"; //endpoint that get game achievements 
@@ -24,3 +24,11 @@ final submit_quiz = "${url}user/api/quiz/submit";
 final quiz_score = "${url}user/quiz/total-score";
 final quiz_score_by_id = "${url}user/quiz/score/";
 final edit_username = "${url}user/edit-username";
+
+// final url = "http://localhost:3000/";
+final url = "http://mad2025.northernhorizon:9094/";
+// final registration = url + "auth/register";
+// final login = url + "auth/login";
+// final game_achievements = url + "achievement/games";
+// final quiz_achievements = url + "achievement/quizzes";
+// final total_achievements = url + "achievement/total";
