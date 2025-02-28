@@ -6,7 +6,7 @@
       <paths name="FBLA_MAD_2025">
         <serverdata>
           <mappings>
-            <mapping deploy="/var/www/FBLA/MobileApp/mad2025/current " local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/var/www/FBLA/MobileApp/mad2025/current" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
