@@ -226,7 +226,7 @@ class _AlgebraWidgetState extends State<AlgebraWidget> {
                                         ParamType.String,
                                       ),
                                       'text': serializeParam(
-                                        'Variables are placeholders for unknown numbers, often represented by x or y. How it Works: Example: x + 5 = 10. Solve by subtracting 5: x = 5.  Quick Tip: Think of variables as mystery numbers to uncover.',
+                                        'Variables are placeholders for unknown numbers, often represented by x or y.  How it Works: Example: x + 5 = 10. Solve by subtracting 5: x = 5.  Quick Tip: Think of variables as mystery numbers to uncover.',
                                         ParamType.String,
                                       ),
                                     }.withoutNulls,
@@ -258,7 +258,7 @@ class _AlgebraWidgetState extends State<AlgebraWidget> {
                                         ParamType.String,
                                       ),
                                       'text': serializeParam(
-                                        'Linear equations have one or more variables with no exponents. How it Works: Example: Solve 2x + 3 = 7. Subtract 3 from both sides: 2x = 4. Divide both sides by 2: x = 2.  Quick Tip: Always simplify step by step.Linear equations have one or more variables with no exponents. How it Works: Example: Solve 2x + 3 = 7. Subtract 3 from both sides: 2x = 4. Divide both sides by 2: x = 2.  Quick Tip: Always simplify step by step.',
+                                        'Linear equations have one or more variables with no exponents. How it Works: Example: Solve 2x + 3 = 7. Subtract 3 from both sides: 2x = 4. Divide both sides by 2: x = 2.  Quick Tip: Always simplify step by step.Linear equations have one or more variables with no exponents. How it Works: Example: Solve 2x + 3 = 7. Subtract 3 from both sides: 2x = 4. Divide both sides by 2: x = 2.  Quick Tip: Always simplify step by step.',
                                         ParamType.String,
                                       ),
                                     }.withoutNulls,
@@ -290,7 +290,7 @@ class _AlgebraWidgetState extends State<AlgebraWidget> {
                                         ParamType.String,
                                       ),
                                       'text': serializeParam(
-                                        'Combine like terms to simplify expressions. How it Works: Example: Simplify 3x + 2x - 4: Combine 3x and 2x: 5x - 4.  Quick Tip: Add or subtract terms with the same variable.',
+                                        'Combine like terms to simplify expressions.  How it Works: Example: Simplify 3x + 2x - 4: Combine 3x and 2x: 5x - 4.  Quick Tip: Add or subtract terms with the same variable.',
                                         ParamType.String,
                                       ),
                                     }.withoutNulls,
@@ -319,7 +319,7 @@ class _AlgebraWidgetState extends State<AlgebraWidget> {
                                       ParamType.String,
                                     ),
                                     'text': serializeParam(
-                                      'Plot points on a graph to visualize equations. How it Works: Example: y = 2x + 1: Plug in values for x (e.g., 0, 1, 2). Find corresponding y values: (0,1), (1,3), (2,5). Draw the line connecting the points.  Quick Tip: Graphs make equations easier to understand.',
+                                      'Plot points on a graph to visualize equations.  How it Works: Example: y = 2x + 1: Plug in values for x (e.g., 0, 1, 2). Find corresponding y values: (0,1), (1,3), (2,5). Draw the line connecting the points.  Quick Tip: Graphs make equations easier to understand.',
                                       ParamType.String,
                                     ),
                                   }.withoutNulls,

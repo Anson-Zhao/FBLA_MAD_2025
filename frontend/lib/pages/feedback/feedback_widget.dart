@@ -186,7 +186,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () {
-                        Navigator.of(context).pop(); // Close the dialog
+                        context.pushNamed('Settings'); // Close the dialog
                       },
                       child: Container(
                         width: 100,

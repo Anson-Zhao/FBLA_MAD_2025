@@ -225,7 +225,7 @@ class _BasicsWidgetState extends State<BasicsWidget> {
                                         ParamType.String,
                                       ),
                                       'text': serializeParam(
-                                        'Addition combines numbers to get a total or sum. How it Works:  Example: 2 + 3 = 5. Combine two numbers by counting forward.  Quick Tip: Think of adding as putting things together.',
+                                        'Addition combines numbers to get a total or sum.  How it Works:  Example: 2 + 3 = 5. Combine two numbers by counting forward.  Quick Tip: Think of adding as putting things together.',
                                         ParamType.String,
                                       ),
                                     }.withoutNulls,
@@ -257,7 +257,7 @@ class _BasicsWidgetState extends State<BasicsWidget> {
                                         ParamType.String,
                                       ),
                                       'text': serializeParam(
-                                        'Subtraction finds theSubtraction finds the difference between numbers or takes one away from another. How it Works: Example: 5 - 2 = 3. Count backward to subtract.  Quick Tip: Subtracting is like taking things away. difference between numbers or takes one away from another. How it Works: Example: 5 - 2 = 3. Count backward to subtract.  Quick Tip: Subtracting is like taking things away.',
+                                        'Subtraction finds theSubtraction finds the difference between numbers or takes one away from another.  How it Works: Example: 5 - 2 = 3. Count backward to subtract.  Quick Tip: Subtracting is like taking things away. difference between numbers or takes one away from another.  How it Works: Example: 5 - 2 = 3. Count backward to subtract.  Quick Tip: Subtracting is like taking things away.',
                                         ParamType.String,
                                       ),
                                     }.withoutNulls,
@@ -289,7 +289,7 @@ class _BasicsWidgetState extends State<BasicsWidget> {
                                         ParamType.String,
                                       ),
                                       'text': serializeParam(
-                                        'Multiplication is repeated addition. How it Works: Example: 3 × 4 = 12. Add 3 four times: 3 + 3 + 3 + 3 = 12.  Quick Tip: Use rows and columns, like 3 rows of 4 apples each.',
+                                        'Multiplication is repeated addition.  How it Works: Example: 3 × 4 = 12. Add 3 four times: 3 + 3 + 3 + 3 = 12.  Quick Tip: Use rows and columns, like 3 rows of 4 apples each.',
                                         ParamType.String,
                                       ),
                                     }.withoutNulls,
@@ -318,7 +318,7 @@ class _BasicsWidgetState extends State<BasicsWidget> {
                                       ParamType.String,
                                     ),
                                     'text': serializeParam(
-                                      'Division splits numbers into equal parts. How it Works: Example: 12 ÷ 3 = 4. Split 12 into 3 equal groups of 4.  Quick Tip: Division is sharing equally.',
+                                      'Division splits numbers into equal parts.  How it Works: Example: 12 ÷ 3 = 4. Split 12 into 3 equal groups of 4.  Quick Tip: Division is sharing equally.',
                                       ParamType.String,
                                     ),
                                   }.withoutNulls,

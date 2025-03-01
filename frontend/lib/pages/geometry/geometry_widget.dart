@@ -227,7 +227,7 @@ class _GeometryWidgetState extends State<GeometryWidget> {
                                         ParamType.String,
                                       ),
                                       'text': serializeParam(
-                                        'Triangle: 3 sides; angles add up to 180°. Rectangle: Opposite sides are equal; angles are 90°. Circle: Defined by radius (distance from center to edge).  Quick Tip: Remember key facts like triangles = 180°.',
+                                        'Triangle: 3 sides; angles add up to 180°.  Rectangle: Opposite sides are equal; angles are 90°.  Circle: Defined by radius (distance from center to edge).  Quick Tip: Remember key facts like triangles = 180°.',
                                         ParamType.String,
                                       ),
                                     }.withoutNulls,
@@ -291,7 +291,7 @@ class _GeometryWidgetState extends State<GeometryWidget> {
                                         ParamType.String,
                                       ),
                                       'text': serializeParam(
-                                        'Acute: Less than 90°. Right: Exactly 90°. Obtuse: More than 90° but less than 180°.  Quick Tip: Use a protractor to measure angles.',
+                                        'Acute: Less than 90°. Right: Exactly 90°. Obtuse: More than 90° but less than 180°.  Quick Tip: Use a protractor to measure angles.',
                                         ParamType.String,
                                       ),
                                     }.withoutNulls,

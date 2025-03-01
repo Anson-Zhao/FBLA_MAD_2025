@@ -1685,16 +1685,35 @@ class _ProgressPageWidgetState extends State<ProgressPageWidget> {
                                 ),
                                 child: Align(
                                   alignment: AlignmentDirectional(0, 0),
-                                  child: Text(
-                                    'Share with X',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: "Prompt",
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          letterSpacing: 0.0,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Align(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Text(
+                                          'Share with ',
+                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                fontFamily: 'Prompt',
+                                                color: FlutterFlowTheme.of(context).secondary,
+                                                fontSize: 14,
+                                                letterSpacing: 0.0,
+                                              ),
                                         ),
+                                      ),
+                                      Container(
+                                        width: 10.29,
+                                        height: 10.5,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: Image.asset(
+                                              'assets/images/twitter_logo.png',
+                                            ).image,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
