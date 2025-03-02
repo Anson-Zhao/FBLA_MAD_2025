@@ -257,7 +257,7 @@ class _BasicsWidgetState extends State<BasicsWidget> {
                                         ParamType.String,
                                       ),
                                       'text': serializeParam(
-                                        'Subtraction finds theSubtraction finds the difference between numbers or takes one away from another.  How it Works: Example: 5 - 2 = 3. Count backward to subtract.  Quick Tip: Subtracting is like taking things away. difference between numbers or takes one away from another.  How it Works: Example: 5 - 2 = 3. Count backward to subtract.  Quick Tip: Subtracting is like taking things away.',
+                                        'Subtraction finds theSubtraction finds the difference between numbers or takes one away from another. How it Works: Example: 5 - 2 = 3. Count backward to subtract.  Quick Tip: Subtracting is like taking things away. difference between numbers or takes one away from another. How it Works: Example: 5 - 2 = 3. Count backward to subtract.  Quick Tip: Subtracting is like taking things away.',
                                         ParamType.String,
                                       ),
                                     }.withoutNulls,
