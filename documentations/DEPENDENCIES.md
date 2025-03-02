@@ -1,4 +1,4 @@
-## Dependencies
+# Dependencies
 EduVenture uses the following dependencies:
 
 ## **Flutter SDK and Plugins**
