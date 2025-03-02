@@ -18,4 +18,3 @@ To protect our original work, we have included the following copyright disclaime
 We ensure that any use of copyrighted content aligns with fair use guidelines, considering factors such as transformation, minimal use, and educational or non-commercial intent. 
 
 By adhering to these measures, EduVenture ensures full compliance with copyright laws and regulations.
-To see a version of this document without the asset table on GitHub repository, click here.
