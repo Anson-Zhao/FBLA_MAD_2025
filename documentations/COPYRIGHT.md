@@ -1,3 +1,5 @@
+# Copyright Compliance
+
 EduVenture adheres to all copyright regulations by ensuring that all assets, code, and content used within the application comply with legal standards. Below are the measures taken to ensure copyright compliance:
 
 All proprietary code, graphics, and written content in EduVenture were created by our development team and are protected under copyright laws. Any third-party assets integrated into the application are properly licensed or used under fair use principles.
