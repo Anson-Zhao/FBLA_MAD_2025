@@ -36,4 +36,5 @@ flutter run
 ## License and Copyright
 This project is licensed under the [MIT License](documentations/LICENSE.md).
 © 2025 Northern Horizon. All rights reserved. Unauthorized reproduction or distribution of this application and this document, as well as all of their contents is prohibited.
+
 For more information, please refer to [COPYRIGHT.md](documentations/COPYRIGHT.md).
