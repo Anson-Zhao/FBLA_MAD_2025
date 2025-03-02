@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="mad2025.northernhorizon.org" id="83d1f691-dfea-4c4f-b337-9ecb95633715" port="5532" nameFormat="DESCRIPTIVE" username="ansonz" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>

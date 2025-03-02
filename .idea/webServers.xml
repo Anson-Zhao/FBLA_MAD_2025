@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="6a9ef9b1-70b1-4817-861d-88057fa390a2" name="FBLA_MAD_2025">
+        <fileTransfer accessType="SFTP" host="mad2025.northernhorizon.org" port="5532" sshConfigId="83d1f691-dfea-4c4f-b337-9ecb95633715" sshConfig="ansonz@mad2025.northernhorizon.org:5532 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" isUseSudo="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
