@@ -9,3 +9,5 @@ We have ensured that limited use of copyrighted content falls within fair use gu
 
 To protect our original work, we have included a disclaimer in the app’s copyright license section stating:
 "© 2025 Northern Horizon. All rights reserved. Unauthorized reproduction or distribution of this application and all of its content is prohibited."
+
+By adhering to these measures, EduVenture ensures full compliance with copyright laws and regulations.
