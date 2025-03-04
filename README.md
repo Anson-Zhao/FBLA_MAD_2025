@@ -1,15 +1,15 @@
 # FBLA Mobile Application Development 2025 - EduVenture
 
-## Description
+## Description 📖
 EduVenture is an educational app designed to help students develop proficiency in various mathematical skills. With a carefully crafted progression system, users can enhance their knowledge through interactive quizzes, engage in both fun and educational games, and share their accomplishments with others.
 
-## Features
+## Features 🚀
 - **Interactive Quizzes**: Test and improve your mathematical skills through a series of interactive quizzes.
 - **Educational Games**: Enjoy fun, engaging games that also help to strengthen your math proficiency.
 - **Progression System**: Track your learning journey with a progression system that adapts to your skill level.
 - **Achievements**: Share your progress and accomplishments with friends, and celebrate your growth.
 
-## Installation
+## Installation 🔧
 
 ### 1. Install [Flutter](https://docs.flutter.dev/get-started/install), [Visual Studio Code](https://code.visualstudio.com/), and [Xcode](https://developer.apple.com/xcode/) or [Android Studio](https://developer.android.com/studio).  
 After installing these tools, open the terminal to check if the installation was successful by running the command:
@@ -58,6 +58,6 @@ flutter run
 The app should launch in the simulator or on a connected device.
 ### 6. Create an Account (Optional)
 Once the app is running, you can either __register__ or __log in__ to start using EduVenture and explore its features.
-## License and Copyright
+## License and Copyright ⚖️
 This project is licensed under the [MIT License](documentations/LICENSE.md).
 © 2025 Northern Horizon. All rights reserved. Unauthorized reproduction or distribution of this application and this document, as well as all of their contents is prohibited.
