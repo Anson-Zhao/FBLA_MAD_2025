@@ -21,6 +21,12 @@ flutter doctor
 This command will verify the installation and display any potential issues with your environment. If everything is set up correctly, you should see a message that indicates "No 
 issues found!" in the output.
 
+If you have previously installed Flutter, please update to the newest version by running the following command:
+
+```bach
+flutter upgrade
+```
+
 **To open the terminal:**
 - On **Windows**, press `Win + R`, type `cmd`, and press Enter to open the Command Prompt.
 - On **macOS**, press `Cmd + Space`, type `Terminal`, and press Enter.
