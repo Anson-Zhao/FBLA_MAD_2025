@@ -21,12 +21,6 @@ flutter doctor
 This command will verify the installation and display any potential issues with your environment. If everything is set up correctly, you should see a message that indicates "No 
 issues found!" in the output.
 
-If you have previously installed Flutter, please update to the newest version by running the following command:
-
-```bach
-flutter upgrade
-```
-
 **To open the terminal:**
 - On **Windows**, press `Win + R`, type `cmd`, and press Enter to open the Command Prompt.
 - On **macOS**, press `Cmd + Space`, type `Terminal`, and press Enter.
@@ -36,6 +30,10 @@ flutter upgrade
 1. Open __Visual Studio Code__, check for Flutter and Dart installation by running 'flutter --version' in the terminal:
 ```sh
 flutter --version
+```
+  If you have previously installed Flutter, please update to the newest version by running the following command:
+```bach
+flutter upgrade
 ```
 2. Click on the "__Extensions__" icon (5th icon of the left toolbar) or press `Ctrl + Shift + X`
 3. In the search bar, search for and install:
