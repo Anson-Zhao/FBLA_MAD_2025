@@ -31,7 +31,7 @@ issues found!" in the output.
 ```sh
 flutter --version
 ```
--If you have previously installed Flutter, please update to the newest version by running the following command:
+- If you have previously installed Flutter, please update to the newest version by running the following command:
 ```bach
 flutter upgrade
 ```
