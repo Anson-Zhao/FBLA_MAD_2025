@@ -9,7 +9,7 @@ EduVenture is an educational app designed to help students develop proficiency i
 - **Progression System**: Track your learning journey with a progression system that adapts to your skill level.
 - **Achievements**: Share your progress and accomplishments with friends, and celebrate your growth.
 
----
+## Installation
 
 ### 1. Install [Flutter](https://docs.flutter.dev/get-started/install), [Visual Studio Code](https://code.visualstudio.com/), and [Xcode](https://developer.apple.com/xcode/) or [Android Studio](https://developer.android.com/studio).  
 After installing these tools, open the terminal to check if the installation was successful by running the command:
