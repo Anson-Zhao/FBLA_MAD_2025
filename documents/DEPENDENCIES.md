@@ -92,4 +92,4 @@ EduVenture uses the following dependencies:
 ---
 
 ### License Disclaimer
-This project is licensed under the [MIT License](documents/LICENSE.md). The dependencies listed above are subject to their respective licenses. Please check individual package repositories for more details.
+This project is licensed under the [MIT License](LICENSE.md). The dependencies listed above are subject to their respective licenses. Please check individual package repositories for more details.
