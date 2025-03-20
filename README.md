@@ -63,7 +63,7 @@ The app should launch in the simulator or on a connected device.
 ### 6. Create an Account (Optional)
 Once the app is running, you can either __register__ or __log in__ to start using EduVenture and explore its features.
 ## License and Copyright ⚖️
-This project is licensed under the [MIT License](documentations/LICENSE.md).
+This project is licensed under the [MIT License](documents/LICENSE.md).
 © 2025 Northern Horizon. All rights reserved. Unauthorized reproduction or distribution of this application and this document, as well as all of their contents is prohibited.
 ## Run into any issues? 🔍
 For any inquiries, feedback, or support, please contact our development team:
