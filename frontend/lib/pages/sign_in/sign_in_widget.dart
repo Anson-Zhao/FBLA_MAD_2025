@@ -358,8 +358,8 @@ class _SignInWidgetState extends State<SignInWidget> {
                       highlightColor: Colors.transparent,
                       onTap: () async {
                         final twitterLogin = TwitterLogin(
-                          apiKey: 'enfU0kJ1byffM9Y3BNqhc3Uwo',
-                          apiSecretKey: 'SrZfVf8SmKGVZpeMya1VCtIxT1qTiIYxTw6nd2gWUUud6eJXwW',
+                          apiKey: 'STM9WZuhScDCBX1uaQxFruSuK',
+                          apiSecretKey: 'mE6YPFUc4ujdZZfSs8pVwM4uoUunUMnqX913L0CitqcxQ5iR36',
                           redirectURI: 'yourapp://callback',
                         );
 
